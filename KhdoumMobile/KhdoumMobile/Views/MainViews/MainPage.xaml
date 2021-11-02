@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.MainViews.MainPage"
+              xmlns:local="clr-namespace:KhdoumMobile.ViewModels.MainViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Home}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="الرئيسية" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#eeeeee">
+            <RefreshView x:DataType="local:MainViewModel"  Command="{Binding LoadCategoriesCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+                <CollectionView x:Name="collectionView" IsGrouped="True" ItemsSource="{Binding Categories}" 
+                ItemsLayout="VerticalGrid, 2" >
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:Category" Orientation="Horizontal">
+                                <Frame  Margin="10" Padding="7" CornerRadius="50" BackgroundColor="White">
+                                    <Image Source="{Binding Icon}" Aspect="AspectFit" WidthRequest="25" HeightRequest="25">
+                                       
+                                    </Image>
+                                </Frame>
+
+                                <Label Text="{Binding Name}"
+                                       BackgroundColor="Transparent"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"
+                                       Padding="0,10,0,10"
+                                       TextColor="#0972ce"
+                                       FontFamily="Cairo"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid  Padding="5,5,5,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="130"/>
+                                </Grid.RowDefinitions>
+                                <Frame CornerRadius="10" Margin="0" x:DataType="model:Item" Padding="0,8,0,0" BackgroundColor="White" HasShadow="True" HeightRequest="100" WidthRequest="110" Grid.Column="0" Grid.Row="0">
+                                    <!--<Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding GoToWebsiteCmd}"
+                                        CommandParameter="{Binding}" />
+                                </Frame.GestureRecognizers>-->
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1"/>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout HeightRequest="100" WidthRequest="110" Padding="0">
+                                        <Image  HorizontalOptions="CenterAndExpand"  
+                                                VerticalOptions="StartAndExpand"
+                                                Aspect="AspectFit"
+                                                HeightRequest="50"
+                                                WidthRequest="50"
+                                                Margin="0,0,0,0"
+                                                Source="{Binding Icon}">
+                                            
+                                        </Image>
+                                        <Label Padding="0" FontFamily="Cairo" Margin="0,0,0,30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Text}" TextColor="#0972ce"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

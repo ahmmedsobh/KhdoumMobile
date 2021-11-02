@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.ProductsViews.ProductsPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.ProductsViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             BackgroundColor="#eeeeee"
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters"
+             Title="المنتجات"
+             xmlns:controls="clr-namespace:KhdoumMobile.CustomControls">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="{Binding CategoryName}" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModels:ProductsViewModel">
+
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="10">
+                    <controls:CustomEntry Margin="0" TextColor="#0972ce" HorizontalOptions="FillAndExpand" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="بحث ..."  BorderColor="White" BackgroundColor="White" Text="{Binding SearchString,Mode=OneWayToSource}"/>
+                    <ImageButton Margin="0" VerticalOptions="FillAndExpand" BackgroundColor="#2497fc" Padding="10" WidthRequest="50" Command="{Binding SearchCommand}">
+                        <ImageButton.Source>
+                            <FontImageSource FontFamily="FAS" 
+                                                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Search}"
+                                                Color="White"/>
+                        </ImageButton.Source>
+                    </ImageButton>
+                </StackLayout>
+            </StackLayout>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding Products}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedProduct}">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10,5,10,5">
+                                <Frame x:DataType="model:Product" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="120" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Frame Grid.RowSpan="2" Padding="0"  HasShadow="False" CornerRadius="5">
+                                            <Image 
+                                               Source="{Binding ImgUrl}"
+                                               Aspect="AspectFit"
+                                               HeightRequest="60"
+                                               WidthRequest="60" />
+                                        </Frame>
+
+                                        <StackLayout Grid.Column="1">
+                                            <Label 
+                                                    Text="{Binding Name}"
+                                                    FontAttributes="Bold" 
+                                                    TextColor="#0972ce"
+                                                    FontFamily="Cairo"
+                                                    FontSize="15"
+                                                    VerticalTextAlignment="Center"/>
+
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label FontSize="10" FontFamily="Cairo" TextColor="#0972ce" Text="المتجر:"/>
+                                                <Label FontSize="10" FontFamily="Cairo" TextColor="Red" Text="{Binding MarketName}"/>
+                                            </StackLayout>
+
+                                            <StackLayout  Margin="0" HeightRequest="1" Padding="0"  BackgroundColor="LightGray"/>
+
+                                            <StackLayout  Orientation="Horizontal">
+                                                <Label FontFamily="Cairo" TextColor="#0972ce" Text=" السعر: "/>
+                                                <Label FontFamily="Cairo" TextColor="Red" Text="{Binding Price,StringFormat=' {0}ج '}"/>
+                                                <Label FontFamily="Cairo" TextColor="#0972ce"  Text=" لكل "/>
+                                                <Label FontFamily="Cairo" TextColor="Red" Text="{Binding UnitName}"/>
+                                            </StackLayout>
+
+                                            <StackLayout  Orientation="Horizontal" >
+                                                <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
+                                                <Label FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
+                                                <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
+                                            </StackLayout>
+                                            
+                                            
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Column="2" HorizontalOptions="End">
+                                            <ImageButton VerticalOptions="FillAndExpand" BackgroundColor="DarkGray" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}">
+                                                <ImageButton.Source>
+                                                    <FontImageSource FontFamily="FAS" 
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Heart}"
+                                                                     Color="White"/>
+                                                </ImageButton.Source>
+                                            </ImageButton>
+                                            <ImageButton VerticalOptions="FillAndExpand" Padding="10"  BackgroundColor="{Binding AddCartItemBtnColor}"   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=AddItemToCartCommand}" CommandParameter="{Binding .}">
+                                                <ImageButton.Source>
+                                                    <FontImageSource FontFamily="FAS" 
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.CartPlus}"
+                                                                     Color="White"/>
+                                                </ImageButton.Source>
+                                            </ImageButton>
+                                        </StackLayout>
+
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

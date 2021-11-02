@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.SupCategoryViews.SupCategoryPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.SupCategoryViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             BackgroundColor="#eeeeee"
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters"
+             Title="التصنيفات">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="{Binding CategoryName}" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                    <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding Categories}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedCategory}"
+                                    x:DataType="viewModels:SupCategoryViewModel">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10,5,10,5">
+                                    <Frame x:DataType="model:SupCategory" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Frame Grid.RowSpan="2" Padding="0" HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
+                                            <Image 
+                                               Source="{Binding ImgUrl}"
+                                               Aspect="AspectFill"
+                                               HeightRequest="60"
+                                               WidthRequest="60" />
+                                            </Frame>
+
+
+                                            <Label Grid.Column="1" 
+                                                    Text="{Binding Name}"
+                                                    FontAttributes="Bold" 
+                                                    TextColor="#0972ce"
+                                                    FontFamily="Cairo"
+                                                    FontSize="20"
+                                                    VerticalTextAlignment="Center"/>
+
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+
+
+
+
+            </Grid>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

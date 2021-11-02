@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.UsersViews.LoginPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:controls="clr-namespace:KhdoumMobile.CustomControls"
+             xmlns:viewModel="clr-namespace:KhdoumMobile.ViewModels.UsersViewModels"
+             Shell.PresentationMode="Animated"
+             Shell.FlyoutBehavior="Disabled"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"></converters:StringToImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20" VerticalOptions="Center" x:DataType="viewModel:LoginViewModel">
+            <Image WidthRequest="200" Source="{Binding Logo,Converter={StaticResource StringToImageSourceConverter}}"/>
+            <Label FontFamily="Cairo" Text="مرحبا بعودتك" TextColor="#0972ce" FontSize="40"   HorizontalTextAlignment="Center"/>
+            <Label FontFamily="Cairo" TextColor="#2497fc" Text="قم بتسجيل الدخول" FontSize="20" HorizontalTextAlignment="Center"/>
+            <Frame CornerRadius="20" Margin="0,20,0,0" Padding="0" HasShadow="False">
+                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Username,Mode=OneWayToSource}"/>
+            </Frame>
+            <Frame CornerRadius="20" Padding="0" HasShadow="False">
+                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="كلمة المرور" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding Password,Mode=OneWayToSource}"/>
+            </Frame>
+            <Frame CornerRadius="20" Padding="0" Margin="0,15,0,0">
+                <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="#0972ce" Text="دخول" Command="{Binding LoginCommand}"/>
+            </Frame>
+            <Frame CornerRadius="20" Padding="0" Margin="0,15,0,0">
+                <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="Red" Text="متابعه بدون تسجيل الدخول" Command="{Binding GoToMainCommand}"/>
+            </Frame>
+            <Label Text="{Binding Message}" FontFamily="Cairo" HorizontalTextAlignment="Center" FontSize="16" TextColor="{Binding MessageColor}"/>
+            <ActivityIndicator Color="#0972ce" IsRunning="{Binding IsBusy}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

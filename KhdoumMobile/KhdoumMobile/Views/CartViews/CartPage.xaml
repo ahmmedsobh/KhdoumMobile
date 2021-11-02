@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.CartViews.CartPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.CartViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             BackgroundColor="#eeeeee"
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters"
+             Title="المنتجات"
+             xmlns:controls="clr-namespace:KhdoumMobile.CustomControls">
+
+   
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="السلة" TextColor="White"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Label FontSize="13" FontFamily="Cairo" VerticalTextAlignment="Center" Text="المبلغ الكلى:" TextColor="LightGray"/>
+                <Label FontSize="13" FontFamily="Cairo" VerticalTextAlignment="Center" Text="{Binding CartTotalAmount}" TextColor="White"/>
+            </StackLayout>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModels:CartViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding Items}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedItem}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10,5,10,5" >
+                                    <Frame x:DataType="model:CartItem" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Frame Grid.RowSpan="2" Padding="0"  HasShadow="False" CornerRadius="5">
+                                                <Image 
+                                               Source="{Binding ImgUrl}"
+                                               Aspect="AspectFit"
+                                               HeightRequest="60"
+                                               WidthRequest="60" />
+                                            </Frame>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label 
+                                                    Text="{Binding Name}"
+                                                    FontAttributes="Bold" 
+                                                    TextColor="#0972ce"
+                                                    FontFamily="Cairo"
+                                                    FontSize="15"
+                                                    VerticalTextAlignment="Center"/>
+
+
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label FontSize="10" FontFamily="Cairo" TextColor="Gray" Text="المتجر:"/>
+                                                    <Label FontSize="10" FontFamily="Cairo" TextColor="#0972ce" Text="{Binding MarketName}"/>
+                                                </StackLayout>
+
+                                                <StackLayout  Margin="0" HeightRequest="1" Padding="0"  BackgroundColor="LightGray"/>
+
+                                                <StackLayout  Orientation="Horizontal">
+                                                    <Label FontFamily="Cairo" TextColor="Gray" Text=" الكمية: "/>
+                                                    <Label FontFamily="Cairo" TextColor="#0972ce" Text="{Binding CounterValue}"/>
+                                                    <Label FontFamily="Cairo" TextColor="#0972ce" Text="{Binding UnitName}"/>
+                                                </StackLayout>
+
+                                                <StackLayout  Orientation="Horizontal">
+                                                    <Label FontFamily="Cairo" TextColor="Gray" Text=" السعر: "/>
+                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding Price,StringFormat=' {0}ج '}"/>
+                                                </StackLayout>
+
+                                                <StackLayout  Orientation="Horizontal">
+                                                    <Label FontFamily="Cairo" TextColor="Gray" Text=" السعر النهائى: "/>
+                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding TotalPrice,StringFormat=' {0}ج '}"/>
+                                                </StackLayout>
+
+                                                <StackLayout  Orientation="Horizontal" >
+                                                    <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
+                                                    <Label FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
+                                                    <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
+                                                </StackLayout>
+
+
+                                            </StackLayout>
+
+                                            <StackLayout Grid.Column="2" HorizontalOptions="End">
+                                                <ImageButton VerticalOptions="Start" BackgroundColor="Red" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=DeleteItemFromCartCommand}" CommandParameter="{Binding .}">
+                                                    <ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" 
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.TrashAlt}"
+                                                                     Color="White"/>
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                                <ImageButton VerticalOptions="Start" Padding="10"  BackgroundColor="{Binding AddCartItemBtnColor}"   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=AddItemToCartCommand}" CommandParameter="{Binding .}">
+                                                    <ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" 
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.CartPlus}"
+                                                                     Color="White"/>
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                            </StackLayout>
+
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+
+                
+            </Grid>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.UsersViews.LoadingPage"
+             Shell.NavBarIsVisible="False" 
+             xmlns:viewModel="clr-namespace:KhdoumMobile.ViewModels.UsersViewModels"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters"
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"></converters:StringToImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModel:LoadingViewModel" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Image WidthRequest="200" Margin="0,0,0,35" Source="{Binding Logo,Converter={StaticResource StringToImageSourceConverter}}"/>
+            <ActivityIndicator  Color="#2497fc" IsRunning="{Binding IsBusy}"/>
+            <Label IsVisible="{Binding IsBusy}" HorizontalTextAlignment="Center" TextColor="#0972ce" FontSize="18" FontFamily="Cairo" Text="يرجى الانتظار ..."/>
+            <Button FontFamily="Cairo" FontSize="15" Padding="15,0,15,0" ContentLayout="left,0" BackgroundColor="#0972ce" Text="دخول" Command="{Binding LoginCommand}" IsVisible="{Binding LoginBtnVisible}">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FAS" 
+                                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.SignInAlt}"
+                                             Size="20"
+                                             Color="White"/>
+                </Button.ImageSource>
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -8,7 +8,8 @@ namespace KhdoumMobile.Interfaces
 {
     interface IOrderService
     {
-        Task<IEnumerable<Order>> GetOrdersAsync(string UserId);
+        Task<IEnumerable<Order>> GetOrdersAsync();
+        Task<OrderViewModel> GetOrderAsync(long Id);
         Task<bool> AddOrderAsync(OrderViewModel Order);
     }
 }

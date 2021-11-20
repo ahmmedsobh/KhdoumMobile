@@ -25,12 +25,15 @@
     </Shell.TitleView>
 
     <ContentPage.Content>
+        
+        
+        
         <StackLayout x:DataType="viewModels:ProductsViewModel">
 
             <StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="10">
                     <controls:CustomEntry Margin="0" TextColor="#0972ce" HorizontalOptions="FillAndExpand" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="بحث ..."  BorderColor="White" BackgroundColor="White" Text="{Binding SearchString,Mode=OneWayToSource}"/>
-                    <ImageButton Margin="0" VerticalOptions="FillAndExpand" BackgroundColor="#2497fc" Padding="10" WidthRequest="50" Command="{Binding SearchCommand}">
+                    <ImageButton Margin="0" VerticalOptions="FillAndExpand" BackgroundColor="#0972ce" Padding="10" WidthRequest="50" Command="{Binding SearchCommand}">
                         <ImageButton.Source>
                             <FontImageSource FontFamily="FAS" 
                                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Search}"
@@ -56,7 +59,7 @@
                                 <Frame x:DataType="model:Product" Padding="10"   CornerRadius="10" BackgroundColor="White">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="120" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -101,11 +104,10 @@
                                                 <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
                                             </StackLayout>
                                             
-                                            
                                         </StackLayout>
 
                                         <StackLayout Grid.Column="2" HorizontalOptions="End">
-                                            <ImageButton VerticalOptions="FillAndExpand" BackgroundColor="DarkGray" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}">
+                                            <ImageButton VerticalOptions="FillAndExpand" BackgroundColor="{Binding AddFavoriteBtnColor}" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=AddFavoriteCommand}" CommandParameter="{Binding .}">
                                                 <ImageButton.Source>
                                                     <FontImageSource FontFamily="FAS" 
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Heart}"
@@ -130,6 +132,8 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Grid>
+
+            
 
 
         </StackLayout>

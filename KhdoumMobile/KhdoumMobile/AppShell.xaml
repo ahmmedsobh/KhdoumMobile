@@ -4,6 +4,8 @@
        xmlns:UserPages="clr-namespace:KhdoumMobile.Views.UsersViews"
        xmlns:MainPages="clr-namespace:KhdoumMobile.Views.MainViews"
        xmlns:CartPages="clr-namespace:KhdoumMobile.Views.CartViews"
+       xmlns:OrdersPages="clr-namespace:KhdoumMobile.Views.OrdersViews"
+       xmlns:FavoritesPages="clr-namespace:KhdoumMobile.Views.FavoritePages"
        Title="KhdoumMobile"
        x:Class="KhdoumMobile.AppShell"
        FlowDirection="RightToLeft" FlyoutBehavior="Disabled" 
@@ -113,6 +115,22 @@
                                  Color="White"/>
             </Tab.Icon>
             <ShellContent Route="CartPage" ContentTemplate="{DataTemplate CartPages:CartPage}" />
+        </Tab>
+        <Tab Title="الطلبات">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS" 
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                 Color="White"/>
+            </Tab.Icon>
+            <ShellContent Route="OrdersPage" ContentTemplate="{DataTemplate OrdersPages:OrdersPage}" />
+        </Tab>
+        <Tab Title="المفضلة">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FAS" 
+                                 Glyph="{x:Static fontAwesome:FontAwesomeIcons.Heart}"
+                                 Color="White"/>
+            </Tab.Icon>
+            <ShellContent Route="OrdersPage" ContentTemplate="{DataTemplate FavoritesPages:FavoritePage}" />
         </Tab>
     </FlyoutItem>
 

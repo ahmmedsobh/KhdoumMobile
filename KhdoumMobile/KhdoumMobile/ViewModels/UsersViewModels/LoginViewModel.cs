@@ -3,6 +3,7 @@ using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
 using KhdoumMobile.Services;
 using KhdoumMobile.Views.MainViews;
+using KhdoumMobile.Views.UsersViews;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -92,8 +93,11 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                         Settings.Password = Password;
                         Settings.AccessToken = isLogined;
 
-                        Message = "تم التسجيل";
-                        MessageColor = "Green";
+                        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+
+
+                        //Message = "تم التسجيل";
+                        //MessageColor = "Green";
                     }
                     else
                     {
@@ -105,13 +109,13 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
             }
         }
 
-        public ICommand GoToMainCommand
+        public ICommand GoToRegisterCommand
         {
             get
             {
                 return new Command(async () =>
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                    await Shell.Current.GoToAsync($"{nameof(RegisterPage)}");
                 });
             }
         }

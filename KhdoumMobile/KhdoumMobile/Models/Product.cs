@@ -10,6 +10,7 @@ namespace KhdoumMobile.Models
         public Product()
         {
             AddCartItemBtnColor = "#0972ce";
+            addFavoriteBtnColor = "DarkGray";
         }
         public long ID { get; set; }
         public string Name { get; set; }
@@ -44,6 +45,16 @@ namespace KhdoumMobile.Models
             set
             {
                 SetProperty(ref addCartItemBtnColor, value);
+            }
+        }
+
+        string addFavoriteBtnColor;
+        public string AddFavoriteBtnColor
+        {
+            get => addFavoriteBtnColor;
+            set
+            {
+                SetProperty(ref addFavoriteBtnColor, value);
             }
         }
     }

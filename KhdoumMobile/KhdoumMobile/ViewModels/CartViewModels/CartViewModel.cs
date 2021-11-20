@@ -1,5 +1,6 @@
 ﻿using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
+using KhdoumMobile.Views.OrdersViews;
 using Plugin.Toast;
 using System;
 using System.Collections.Generic;
@@ -133,8 +134,9 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                             CounterValue = i.CounterValue,
                             AddCartItemBtnColor = i.AddCartItemBtnColor,
                             UnitName = i.UnitName,
-                            MarketName = i.MarketName
-
+                            MarketName = i.MarketName,
+                            ProductId = i.ProductId,
+                            MarketId = i.MarketId
                         };
 
                         var r = await CartService.AddCartItem(item);
@@ -184,7 +186,20 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             }
         }
 
-        
+        public ICommand ConfirmOrderCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    if(Items.Count() > 0)
+                    {
+                        await Shell.Current.GoToAsync(nameof(AddOrderPage));
+                    }
+                });
+            }
+        }
+
 
         async void OnItemSelected(CartItem Item)
         {

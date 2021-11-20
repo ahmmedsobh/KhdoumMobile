@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,11 @@ namespace KhdoumMobile.Services
         {
             var client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Products/GetViewProduct/{ProductId}");
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
 
             Product product = new Product();
 
@@ -32,6 +38,12 @@ namespace KhdoumMobile.Services
         public async Task<IEnumerable<Product>> GetProductsAsync(long CategoryId)
         {
             var client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
             HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Products/GetProductsByCategoryId/{CategoryId}");
 
             IEnumerable<Product> products = new List<Product>();

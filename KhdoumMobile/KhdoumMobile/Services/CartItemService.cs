@@ -54,6 +54,21 @@ namespace KhdoumMobile.Services
 
             return await Task.FromResult(result);
         }
+
+        public async Task<bool> DeleteAllCartItems()
+        {
+            var CartItems = new List<CartItem>();
+            var ItemsToJson = JsonConvert.SerializeObject(CartItems);
+            var result = await PCLFileStorage.WriteTextAllAsync(FileName, ItemsToJson, await FileSystem.Current.LocalStorage.GetFolderAsync(FolderName));
+            if(result)
+            {
+                return await Task.FromResult(true);
+            }
+
+            return await Task.FromResult(false);
+
+        }
+
         public async Task<bool> DeleteCartItem(long Id)
         {
             var result = false;
@@ -71,6 +86,7 @@ namespace KhdoumMobile.Services
 
             return await Task.FromResult(result);
         }
+
         public Task<CartItem> GetCartItem(long Id)
         {
             throw new NotImplementedException();

@@ -1,6 +1,7 @@
 ﻿using KhdoumMobile.Helpers;
 using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
+using KhdoumMobile.Views.UsersViews;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,17 @@ using Xamarin.Forms;
 
 namespace KhdoumMobile.Services
 {
-    class OrderService : IOrderService
+    class OrderService : BaseService ,IOrderService
     {
         public ICartService CartService => DependencyService.Get<ICartService>();
-
         public async Task<bool> AddOrderAsync(OrderViewModel Order)
         {
             var Client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
 
             Order = await FillOrderDetails(Order);
 
@@ -40,11 +45,18 @@ namespace KhdoumMobile.Services
 
             return await Task.FromResult(false);
         }
-
-        public async Task<IEnumerable<Order>> GetOrdersAsync(string UserId)
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
+           
+
             var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Orders/GetOrdersWithoutDetailsForUser/{UserId}");
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
+            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Orders/GetOrdersWithoutDetailsForUser");
 
             IEnumerable<Order> orders = new List<Order>();
 
@@ -54,14 +66,61 @@ namespace KhdoumMobile.Services
                 orders = JsonConvert.DeserializeObject<IEnumerable<Order>>(json);
             }
 
+            orders = from o in orders
+                     select new Order
+                     {
+                         ID = o.ID,
+                         CustomerName = o.CustomerName,
+                         Total = o.Total,
+                         Date = o.Date,
+                         Address = o.Address,
+                         Notes = o.Notes,
+                         Phone = o.Phone,
+                         DeliveryService = o.DeliveryService,
+                         IsActive = o.IsActive,
+                         DeliveryData = o.DeliveryData,
+                         Status = o.Status,
+                         StateId = o.StateId,
+                         CityId = o.CityId,
+                         UserId = o.UserId,
+                         StatusTitle = GetStatusTitle(o.Status),
+                         StatusIcon = GetStatusIcon(o.Status),
+                         StatusColor = GetStatusColor(o.Status),
+                     };
+
             return await Task.FromResult(orders);
         }
+        public async Task<OrderViewModel> GetOrderAsync(long Id)
+        {
+            var client = new HttpClient();
 
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
+            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Orders/{Id}");
+
+            OrderViewModel order = new OrderViewModel();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                order = JsonConvert.DeserializeObject<OrderViewModel>(json);
+            }
+           
+            order.Order.StatusTitle = GetStatusTitle(order.Order.Status);
+            order.Order.StatusIcon = GetStatusIcon(order.Order.Status);
+            order.Order.StatusColor = GetStatusColor(order.Order.Status);
+            
+
+            return await Task.FromResult(order);
+        }
         async Task<OrderViewModel> FillOrderDetails(OrderViewModel Order)
         {
             var OrderDetails = new List<OrderDetails>();
             var CartItems = await CartService.GetCartItems();
-            decimal TotalPrice = 0;
+            //decimal TotalPrice = 0;
 
             if(CartItems != null)
             {
@@ -76,9 +135,9 @@ namespace KhdoumMobile.Services
                                         ProductId = i.ProductId
                                    }).ToList();
 
-                    TotalPrice = CartItems.Select(i => i.TotalPrice).Sum();
+                    //TotalPrice = CartItems.Select(i => i.TotalPrice).Sum();
 
-                    Order.Order.Total = TotalPrice;
+                    //Order.Order.Total = TotalPrice;
                     Order.OrderDetails = OrderDetails;
                 }
             }
@@ -86,6 +145,72 @@ namespace KhdoumMobile.Services
             return await Task.FromResult(Order);
 
 
+        }
+        string GetStatusTitle(int Status)
+        {
+            string StatusTitle = "";
+
+            switch(Status)
+            {
+                case 1:
+                    StatusTitle = "انتظار";
+                    break;
+                case 2:
+                    StatusTitle = "ينفذ";
+                    break;
+                case 3:
+                    StatusTitle = "مكتمل";
+                    break;
+                case 4:
+                    StatusTitle = "ملغى";
+                    break;
+            }
+
+            return StatusTitle;
+        }
+        string GetStatusIcon(int Status)
+        {
+            string StatusIcon = "";
+
+            switch (Status)
+            {
+                case 1:
+                    StatusIcon = "\uf110";
+                    break;
+                case 2:
+                    StatusIcon = "\uf085";
+                    break;
+                case 3:
+                    StatusIcon = "\uf058";
+                    break;
+                case 4:
+                    StatusIcon = "\uf057";
+                    break;
+            }
+
+            return StatusIcon;
+        }
+        string GetStatusColor(int Status)
+        {
+            string StatusColor = "";
+
+            switch (Status)
+            {
+                case 1:
+                    StatusColor = "#ffc000";
+                    break;
+                case 2:
+                    StatusColor = "#1000dd";
+                    break;
+                case 3:
+                    StatusColor = "#0ec100";
+                    break;
+                case 4:
+                    StatusColor = "#e70000";
+                    break;
+            }
+
+            return StatusColor;
         }
     }
 }

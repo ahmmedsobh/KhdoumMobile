@@ -6,16 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KhdoumMobile.Services
 {
-    class CategoryService : ICategoryService
+    class CategoryService : BaseService ,ICategoryService
     {
         public async Task<IEnumerable<SupCategory>> GetChildCategories(long CategoryId)
         {
             var client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
             HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/categories/GetChildCategories/{CategoryId}");
 
             IEnumerable<SupCategory> categories = new List<SupCategory>();
@@ -36,7 +43,13 @@ namespace KhdoumMobile.Services
 
         public async Task<IEnumerable<Category>> GetItemsAsync(bool Short = true)
         {
+
             var client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
 
 
             HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/categories/GetFrom1To2LevelCategories");

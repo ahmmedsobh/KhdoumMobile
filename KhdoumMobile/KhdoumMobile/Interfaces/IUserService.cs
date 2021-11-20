@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KhdoumMobile.Interfaces
 {
-    interface IUserService<T>
+    public interface IUserService<T>
     {
         Task<string> LoginAsync(string Phone, string Password);
         Task<bool> RegisterAsync(string Phone, string Password,string ConfirmPassword);

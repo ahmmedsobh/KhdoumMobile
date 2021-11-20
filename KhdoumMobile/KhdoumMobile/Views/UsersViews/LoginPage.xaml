@@ -30,7 +30,7 @@
                 <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="#0972ce" Text="دخول" Command="{Binding LoginCommand}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" Margin="0,15,0,0">
-                <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="Red" Text="متابعه بدون تسجيل الدخول" Command="{Binding GoToMainCommand}"/>
+                <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="Red" Text="انشاء حساب جديد" Command="{Binding GoToRegisterCommand}"/>
             </Frame>
             <Label Text="{Binding Message}" FontFamily="Cairo" HorizontalTextAlignment="Center" FontSize="16" TextColor="{Binding MessageColor}"/>
             <ActivityIndicator Color="#0972ce" IsRunning="{Binding IsBusy}"/>

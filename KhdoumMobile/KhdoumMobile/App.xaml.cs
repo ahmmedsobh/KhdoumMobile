@@ -18,6 +18,8 @@ namespace KhdoumMobile
             DependencyService.Register<CategoryService>();
             DependencyService.Register<ProductsService>();
             DependencyService.Register<CartItemService>();
+            DependencyService.Register<OrderService>();
+            DependencyService.Register<FavoriteService>();
             MainPage = new AppShell();
         }
 

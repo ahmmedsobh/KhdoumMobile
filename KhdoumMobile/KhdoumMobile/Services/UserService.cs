@@ -69,6 +69,11 @@ namespace KhdoumMobile.Services
         {
             var client = new HttpClient();
 
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
 
             HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/categories/GetFrom1To2LevelCategories");
 

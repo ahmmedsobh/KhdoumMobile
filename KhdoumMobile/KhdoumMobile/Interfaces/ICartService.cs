@@ -12,6 +12,7 @@ namespace KhdoumMobile.Interfaces
         Task<CartItem> GetCartItem(long Id);
         Task<bool> AddCartItem(CartItem Item);
         Task<bool> DeleteCartItem(long Id);
+        Task<bool> DeleteAllCartItems();
         Task<bool> UpdateCartItem(CartItem Item,List<CartItem> CartItems);
     }
 }

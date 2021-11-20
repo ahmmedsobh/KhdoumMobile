@@ -52,8 +52,8 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                 return;
             }
 
-            //var isLoggedIn = await Users.IsLoggedIn();
-            var isLoggedIn = true;
+            var isLoggedIn = await Users.IsLoggedIn();
+            //var isLoggedIn = true;
             //await Task.Delay(10000);
 
             if (isLoggedIn)

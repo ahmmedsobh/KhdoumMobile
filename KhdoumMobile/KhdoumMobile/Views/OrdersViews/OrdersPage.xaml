@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.OrdersViews.OrdersPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.OrderViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             BackgroundColor="#eeeeee"
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="الطلبات" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModels:OrdersViewModel">
+
+            
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <RefreshView Command="{Binding LoadOrdersCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding Orders}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedOrder}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10,5,10,5">
+                                    <Frame x:DataType="model:Order" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Frame Padding="0" VerticalOptions="Center" CornerRadius="10" HasShadow="False" Grid.RowSpan="2">
+                                                <StackLayout VerticalOptions="Center" WidthRequest="50" HeightRequest="50" Padding="10"  BackgroundColor="{Binding StatusColor}">
+                                                    <Image >
+                                                        <Image.Source>
+                                                            
+                                                            <FontImageSource FontFamily="FAS"
+                                                             Color="White"
+                                                             Glyph="{Binding StatusIcon}"
+                                                             Size="30"/>
+                                                        </Image.Source>
+                                                    </Image>
+                                                    <Label TextColor="White"  FontFamily="Cairo"   Text="{Binding StatusTitle}" HorizontalTextAlignment="Center"/>
+                                                </StackLayout>
+                                            </Frame>
+                                           
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label 
+                                                    Text="{Binding Index,StringFormat='طلب رقم {0}'}"
+                                                    FontAttributes="Bold" 
+                                                    TextColor="#0972ce"
+                                                    FontFamily="Cairo"
+                                                    FontSize="15"
+                                                    VerticalTextAlignment="Center"/>
+
+
+                                                <StackLayout  Margin="0" HeightRequest="1" Padding="0"  BackgroundColor="LightGray"/>
+
+                                                <StackLayout  Orientation="Horizontal">
+                                                    <Label FontFamily="Cairo" TextColor="#0972ce" Text=" الاجمالى: "/>
+                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding TotalAmount,StringFormat=' {0}ج '}"/>
+                                                    <Label FontFamily="Cairo" FontSize="8" TextColor="Gray" Text=" (شامل خدمة التوصيل) "/>
+                                                </StackLayout>
+
+                                                <Label Text="{Binding Date}" TextColor="Gray"/>
+
+
+                                            </StackLayout>
+
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                
+            </Grid>
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

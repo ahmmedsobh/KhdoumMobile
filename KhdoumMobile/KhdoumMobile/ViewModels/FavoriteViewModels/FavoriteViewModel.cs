@@ -1,8 +1,6 @@
-﻿using KhdoumMobile.Helpers;
-using KhdoumMobile.Interfaces;
+﻿using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
-using KhdoumMobile.ViewModels.SupCategoryViewModels;
-using KhdoumMobile.Views.SupCategoryViews;
+using Plugin.Toast;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,35 +9,26 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.UI.Views.Options;
-using Plugin.Toast;
 
-namespace KhdoumMobile.ViewModels.ProductsViewModels
+namespace KhdoumMobile.ViewModels.FavoriteViewModels
 {
-    [QueryProperty(nameof(CategoryId), nameof(CategoryId))]
-    class ProductsViewModel :BaseViewModel
+    class FavoriteViewModel:BaseViewModel
     {
         public IProductsService ProductsService => DependencyService.Get<IProductsService>();
         public ICartService CartService => DependencyService.Get<ICartService>();
         public IFavoriteService FavoriteService => DependencyService.Get<IFavoriteService>();
-
         private Product _selectedProduct;
-
         public ObservableCollection<Product> Products { get; }
         public Command LoadProductsCommand { get; }
         public Command<Product> ProductTapped { get; }
-
-        public ProductsViewModel()
+        public FavoriteViewModel()
         {
             Products = new ObservableCollection<Product>();
 
             ProductTapped = new Command<Product>(OnProductSelected);
-
-
+            LoadProductsCommand = new Command(() => ExecuteLoadProductsCommand());
         }
-
-        async void ExecuteLoadProductsCommand(long CategoryId)
+        void ExecuteLoadProductsCommand()
         {
 
             //var IsConnected = await connectionService.IsConnected();
@@ -51,16 +40,7 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
 
             try
             {
-                var products = await ProductsService.GetProductsAsync(CategoryId);
-
-                if(products.Count() > 0)
-                {
-                    CategoryName = products.ToList()[0].CategoryName;
-                }
-
                 FillProducts();
-
-              
             }
             catch (Exception ex)
             {
@@ -71,13 +51,11 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                 IsBusy = false;
             }
         }
-
         public void OnAppearing()
         {
             IsBusy = true;
             SelectedProduct = null;
         }
-
         public Product SelectedProduct
         {
             get => _selectedProduct;
@@ -87,42 +65,6 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                 OnProductSelected(value);
             }
         }
-
-        long categoryId;
-        public long CategoryId
-        {
-            get => categoryId;
-            set
-            {
-                SetProperty(ref categoryId, value);
-                ExecuteLoadProductsCommand(value);
-            }
-        }
-
-        string categoryName;
-        public string CategoryName 
-        {
-            get => categoryName;
-            set
-            {
-                SetProperty(ref categoryName, value);
-            } 
-        }
-
-        string searchString;
-        public string SearchString
-        {
-            get => searchString;
-            set
-            {
-                SetProperty(ref searchString, value);
-            }
-        }
-
-
-
-
-
         public ICommand IncreaseCounter
         {
             get
@@ -134,14 +76,13 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                 });
             }
         }
-
         public ICommand DecreaseCounter
         {
             get
             {
                 return new Command<Product>((p) =>
                 {
-                    if(p.CounterValue > 0)
+                    if (p.CounterValue > 0)
                     {
                         p.CounterValue -= p.QuantityDuration;
                     }
@@ -150,18 +91,17 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                     {
                         p.AddCartItemBtnColor = "#0972ce";
                     }
-                    
+
                 });
             }
         }
-
         public ICommand AddItemToCartCommand
         {
             get
             {
-                return new Command<Product>(async(p) =>
+                return new Command<Product>(async (p) =>
                 {
-                   if(p.CounterValue > 0.1M)
+                    if (p.CounterValue > 0.1M)
                     {
                         var item = new CartItem()
                         {
@@ -180,8 +120,8 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                             MarketId = p.MarketId
                         };
 
-                        var r =  await CartService.AddCartItem(item);
-                        if(r)
+                        var r = await CartService.AddCartItem(item);
+                        if (r)
                         {
                             CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
                         }
@@ -189,62 +129,16 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                 });
             }
         }
-
-        public ICommand AddFavoriteCommand
+        public ICommand DeleteProductCommand
         {
             get
             {
                 return new Command<Product>(async (p) =>
                 {
-                    
-                    bool r;
-                    if(p.AddFavoriteBtnColor == "Red")
+                    var r = await FavoriteService.DeleteProduct(p.ID);
+                    if(r)
                     {
-                        r = await FavoriteService.DeleteProduct(p.ID);
-                        //if(r)
-                        //{
-                            p.AddFavoriteBtnColor = "DarkGray";
-                        //}
-                    }
-                    else if(p.AddFavoriteBtnColor == "DarkGray")
-                    {
-                            r = await FavoriteService.AddProduct(p);
-                            //if (r)
-                            //{
-                                p.AddFavoriteBtnColor = "Red";
-                            //}
-                    }
-                    
-                });
-            }
-        }
-
-        public ICommand SearchCommand
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    var SearchString = this.SearchString;
-                    if(SearchString == null || SearchString == "")
-                    {
-                        FillProducts();
-                        return;
-                    }
-
-                    var SearchResult = Products.Where(p => p.Name.Contains(SearchString) || p.Price.ToString().Contains(SearchString) || p.UnitName.Contains(SearchString) || p.CategoryName.Contains(SearchString)).ToList();
-
-                    if (SearchResult.Count() > 0)
-                    {
-                        Products.Clear();
-                        foreach (var item in SearchResult)
-                        {
-                            Products.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        FillProducts();
+                        Products.Remove(p);
                     }
                 });
             }
@@ -257,33 +151,14 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
             SelectedProduct = null;
             //await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={category.ID}");
         }
-
         async void FillProducts()
         {
             Products.Clear();
-
-            IEnumerable<Product> favorites = new List<Product>();
-
-            if((await FavoriteService.GetProducts()) != null)
-            {
-                if((await FavoriteService.GetProducts()).Count() > 0)
-                {
-                    favorites = await FavoriteService.GetProducts();
-                }
-            }
-
-            var products = await ProductsService.GetProductsAsync(CategoryId);
+            var products = await FavoriteService.GetProducts();
             foreach (var item in products)
             {
-                var favorite = favorites.FirstOrDefault(f => f.ID == item.ID);
-                if (favorite == null)
-                    item.AddFavoriteBtnColor = "DarkGray";
-                else
-                    item.AddFavoriteBtnColor = "Red";
-
                 Products.Add(item);
             }
         }
-
     }
 }

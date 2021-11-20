@@ -1,5 +1,7 @@
-﻿using KhdoumMobile.Models;
+﻿using KhdoumMobile.Interfaces;
+using KhdoumMobile.Models;
 using KhdoumMobile.Services;
+using KhdoumMobile.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +12,16 @@ namespace KhdoumMobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public BaseViewModel()
+        {
+            
+        }
+
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+
+
+        
+
 
         bool isBusy = false;
         public bool IsBusy

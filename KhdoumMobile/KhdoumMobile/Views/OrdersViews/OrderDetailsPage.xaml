@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.OrdersViews.OrderDetailsPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.OrderViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             BackgroundColor="#eeeeee"
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters"
+             Title="المنتجات"
+             xmlns:controls="clr-namespace:KhdoumMobile.CustomControls">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="تفاصيل الطلب" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModels:OrderDetailsViewModel">
+
+            <Frame Padding="0" Margin="10" CornerRadius="10">
+                <StackLayout  Padding="10" BackgroundColor="White">
+                    <StackLayout >
+                        <Label FontFamily="Cairo" FontSize="20" TextColor="Gray" Text="تاريخ الارسال: "/>
+                        <Label FontFamily="Cairo" FontSize="20" HorizontalTextAlignment="Center"  TextColor="#0972ce" Text="{Binding Order.Date}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label FontFamily="Cairo" FontSize="20" TextColor="Gray" Text="حالة الطلب: "/>
+                        <Label FontFamily="Cairo" FontSize="20" Text="{Binding Order.StatusTitle}" TextColor="{Binding Order.StatusColor}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label FontFamily="Cairo" FontSize="20" TextColor="Gray" Text="المبلغ الكلى: "/>
+                        <Label FontFamily="Cairo" FontSize="20" Text="{Binding Order.TotalAmount,StringFormat='{0}ج'}" TextColor="#0972ce"/>
+                        <Label FontFamily="Cairo" FontSize="12" TextColor="Gray" Text="(شامل خدمة التوصيل)"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding OrderDetails}"
+                                    SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10,5,10,5">
+                                <Frame x:DataType="model:OrderDetails" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Frame Grid.RowSpan="2" Padding="0"  HasShadow="False" CornerRadius="5">
+                                            <Image 
+                                               Source="{Binding ImgUrl}"
+                                               Aspect="AspectFit"
+                                               HeightRequest="60"
+                                               WidthRequest="60" />
+                                        </Frame>
+
+                                        <StackLayout Grid.Column="1">
+                                            <Label 
+                                                    Text="{Binding Name}"
+                                                    FontAttributes="Bold" 
+                                                    TextColor="#0972ce"
+                                                    FontFamily="Cairo"
+                                                    FontSize="15"
+                                                    VerticalTextAlignment="Center"/>
+
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label FontSize="10" FontFamily="Cairo" TextColor="#0972ce" Text="المتجر:"/>
+                                                <Label FontSize="10" FontFamily="Cairo" TextColor="Red" Text="{Binding MarketName}"/>
+                                            </StackLayout>
+
+                                            <StackLayout  Margin="0" HeightRequest="1" Padding="0"  BackgroundColor="LightGray"/>
+                                            
+                                            <StackLayout  Orientation="Horizontal">
+                                                <Label FontFamily="Cairo" TextColor="Gray" Text=" الكمية: "/>
+                                                <Label FontFamily="Cairo" TextColor="#0972ce" Text="{Binding Quantity}"/>
+                                            </StackLayout>
+                                            <StackLayout  Orientation="Horizontal">
+                                                <Label FontFamily="Cairo" TextColor="#0972ce" Text=" السعر: "/>
+                                                <Label FontFamily="Cairo" TextColor="Red" Text="{Binding Price,StringFormat=' {0}ج '}"/>
+                                            </StackLayout>
+                                            <StackLayout  Orientation="Horizontal">
+                                                <Label FontFamily="Cairo" TextColor="#0972ce" Text=" السعر الكلى "/>
+                                                <Label FontFamily="Cairo" TextColor="Red" Text="{Binding Value,StringFormat=' {0}ج '}"/>
+                                            </StackLayout>
+
+                                         
+
+
+                                        </StackLayout>
+
+                                       
+
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.ContactUsPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels">
+    <ContentPage.Content>
+        <StackLayout Margin="10" x:DataType="viewModels:ContactUsViewModel">
+            <Editor TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رسالتك"  BackgroundColor="#eceef2" Text="{Binding Message}"></Editor>
+            <Button BackgroundColor="#0972ce" Text="ارسال" Command="{Binding SendCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

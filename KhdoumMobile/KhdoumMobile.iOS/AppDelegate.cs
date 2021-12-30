@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xam.Shell.Badge.iOS;
 
 namespace KhdoumMobile.iOS
 {
@@ -23,8 +24,8 @@ namespace KhdoumMobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            BottomBar.Init();
             LoadApplication(new App());
-
             return base.FinishedLaunching(app, options);
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KhdoumMobile.Models
 {
-    class Order:BaseViewModel
+    public class Order:BaseViewModel
     {
         public long ID { get; set; }
         public int Index { get; set; }
@@ -94,7 +94,8 @@ namespace KhdoumMobile.Models
         public int DeliveryData { get; set; }
         public int Status { get; set; }
         public int CityId { get; set; }
-        public int StateId { get; set; }
+        public int? StateId { get; set; } = 1;
+        public int? ToStateId { get; set; } = 1;
         public string UserId { get; set; }
         string statusTitle;
         public string StatusTitle 

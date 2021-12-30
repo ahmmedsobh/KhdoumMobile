@@ -75,7 +75,7 @@
                 </StackLayout>
 
                 <StackLayout Padding="0,10,0,0">
-                    <Button Text="ارسال الطلب" BackgroundColor="#0972ce" TextColor="White" FontFamily="Cairo" Command="{Binding AddOrderCommand}"/>
+                    <Button IsEnabled="{Binding IsOrderBtnEnabled}"  Text="ارسال الطلب" BackgroundColor="#0972ce" TextColor="White" FontFamily="Cairo" Command="{Binding AddOrderCommand}"/>
                 </StackLayout>
 
                 <Label Text="{Binding Message}" HorizontalTextAlignment="Center" FontFamily="Cairo" TextColor="{Binding MessageColor}"/>

@@ -22,7 +22,8 @@ namespace KhdoumMobile.Models
         public string MarketName { get; set; }
         public string MarketId { get; set; }
         public long ProductId { get; set; }
-
+        public int StateId { get; set; }
+        public string StateName { get; set; }
 
 
         decimal counterValue;

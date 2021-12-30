@@ -36,7 +36,8 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
             }
         }
 
-        
+       
+
 
         string message;
         public string Message
@@ -68,6 +69,7 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
             {
                 return new Command(async () =>
                 {
+                    
                     if (Username == "" || Username == null)
                     {
                         Message = "رقم الهاتف مطلوب";
@@ -82,12 +84,14 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                         return;
                     }
 
+                    IsBusy = true;
+
                     var isLogined = await Users.LoginAsync
                         (Username, Password);
 
                    
 
-                    if (isLogined != "")
+                    if (!string.IsNullOrEmpty(isLogined))
                     {
                         Settings.Username = Username;
                         Settings.Password = Password;
@@ -101,6 +105,7 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                     }
                     else
                     {
+                        IsBusy = false;
                         Message = "حدث خطأ ، حاول مجددا";
                         MessageColor = "Red";
                         return;

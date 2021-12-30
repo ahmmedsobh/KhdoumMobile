@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KhdoumMobile.Models.ViewModels
 {
-    class PickerViewModel<T>
+    public class PickerViewModel<T>
     {
         public T Value { get; set; }
         public string Name { get; set; }

@@ -87,6 +87,16 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             }
         }
 
+        bool isOrderBtnEnabled;
+        public bool IsOrderBtnEnabled
+        {
+            get => isOrderBtnEnabled;
+            set
+            {
+                SetProperty(ref isOrderBtnEnabled, value);
+            }
+        }
+
 
 
 
@@ -135,6 +145,11 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                     {
                         Message = "المنطقة مطلوبة";
                         MessageColor = "Red";
+                        return;
+                    }
+
+                    if(IsOrderBtnEnabled == false)
+                    {
                         return;
                     }
 
@@ -279,16 +294,53 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
 
         async void CalcTotalAmount(PickerViewModel<int> State)
         {
+            IsBusy = true;
+            //IsOrderBtnEnabled = false;
             if(State != null)
             {
                 var Items = await this.Items();
-                var GroupsCount = Items.GroupBy(i => i.MarketId).Count();
-                var DeliveryService = Convert.ToDecimal(State.Value2);
-
-                if (GroupsCount > 1)
+                var Groups = Items.GroupBy(i => new {i.MarketId,i.StateId});
+                var DeliveryService = 0M;
+                var Counter = 0;
+                var StatesId = new List<int>();
+                foreach(var g in Groups)
                 {
-                    DeliveryService = ((GroupsCount - 1) * 3) + DeliveryService;
+                    if (g.Key.StateId == State.Value)
+                    {
+                        if(Counter == 0)
+                        {
+                            var delivery = await OrderServcie.GeneralDelivery(State.Value, g.Key.StateId);
+                            DeliveryService = delivery.DeliveryService + DeliveryService;
+                            Counter = Counter + 1;
+                        }
+                        else
+                        {
+                            DeliveryService = 3 + DeliveryService;
+                        }
+                    }
+                    else
+                    {
+                        var delivery = await OrderServcie.GeneralDelivery(State.Value, g.Key.StateId);
+                        if (delivery != null)
+                        {
+                            int StateId = StatesId.FirstOrDefault(s => s == g.Key.StateId);
+                            if (StateId == 0)
+                            {
+                                StatesId.Add(g.Key.StateId);
+                                DeliveryService = delivery.DeliveryService + DeliveryService;
+                            }
+                            else
+                            {
+                                DeliveryService = 5 + DeliveryService;
+                            }
+                        }
+                    }
+
+                    
+                    
                 }
+
+                
 
                 var TotalAmount = Order.Total + DeliveryService;
 
@@ -297,6 +349,10 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                 Order.TotalAmount = TotalAmount;
                 Order.DeliveryService = DeliveryService;
             }
+
+            IsBusy = false;
+            
+            IsOrderBtnEnabled = true;
             
         }
 

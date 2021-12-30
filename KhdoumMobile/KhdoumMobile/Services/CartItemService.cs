@@ -119,7 +119,8 @@ namespace KhdoumMobile.Services
             {
                 if (await PCLFileStorage.IsFileExistAsync(FileName, await FileSystem.Current.LocalStorage.GetFolderAsync(FolderName)))
                 {
-                    var CartItems = await CartItemsList();
+                    //var CartItems = await CartItemsList();
+                    var CartItems = new List<CartItem>();
                     if (cartItems != null)
                     {
                         if(cartItems.Count > 0)

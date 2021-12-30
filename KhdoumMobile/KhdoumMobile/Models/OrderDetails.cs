@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KhdoumMobile.Models
 {
-    class OrderDetails
+    public class OrderDetails
     {
         public long ID { get; set; }
         public decimal Quantity { get; set; }

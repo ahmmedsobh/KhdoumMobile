@@ -28,9 +28,15 @@
 
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <RefreshView Command="{Binding LoadOrdersCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+
+                <StackLayout Padding="10">
+                    <Picker FontFamily="Cairo" Title="فلترة الطلبات" ItemsSource="{Binding StatusList}" SelectedItem="{Binding SelectedStatus}" ItemDisplayBinding="{Binding Name}"/>
+                </StackLayout>
+                
+                <RefreshView Grid.Row="1" Command="{Binding LoadOrdersCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
                     <CollectionView x:Name="ItemsListView"
                                     ItemsSource="{Binding Orders}"
                                     SelectionMode="Single"

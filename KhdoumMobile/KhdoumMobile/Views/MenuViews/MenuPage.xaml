@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.MenuViews.MenuPage"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="القائمة" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout x:DataType="viewModels:MenuViewModel">
+
+
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackLayout  Margin="10" HorizontalOptions="Center">
+                    <Frame  BackgroundColor="#0972ce" CornerRadius="100" WidthRequest="100" HeightRequest="100"  Padding="5">
+                        <Label FontFamily="FAS" FontSize="70" Text="user" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White"/>
+                    </Frame>
+                    <Label Grid.Column="1" FontFamily="Cairo" Text="{Binding Name}" FontSize="25" TextColor="#0972ce" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                    <Label Grid.Column="1" FontFamily="Cairo" Text="{Binding Phone}" FontSize="14" TextColor="Gray" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                </StackLayout>
+              
+
+                <CollectionView Grid.Row="1" x:Name="ItemsListView"
+                                ItemsSource="{Binding Items}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedItem}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10,5,10,5">
+                                    <Frame x:DataType="model:Item" Padding="10"   CornerRadius="10" BackgroundColor="WhiteSmoke">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Frame  BackgroundColor="#0972ce" CornerRadius="30" WidthRequest="30" HeightRequest="30"  Padding="5">
+                                                <Label FontFamily="FAS" FontSize="25" Text="{Binding Icon}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White"/>
+                                            </Frame>
+
+                                            <Label Grid.Column="1" FontFamily="Cairo" Text="{Binding Text}" FontSize="25" TextColor="#0972ce" VerticalTextAlignment="Center"/>
+
+
+
+
+
+                                    </Grid>
+                                    </Frame>
+                                </StackLayout>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                <CollectionView Grid.Row="2" 
+                                    ItemsSource="{Binding Medias}"
+                                    SelectionMode="Single"
+                                    SelectedItem="{Binding SelectedMedia}"
+                                    ItemsLayout="VerticalGrid, 5">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10,5,10,5" x:DataType="model:Item">
+                                <Label FontFamily="FAB" FontSize="35" Text="{Binding Icon}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{Binding IconColor}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+
+            </Grid>
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

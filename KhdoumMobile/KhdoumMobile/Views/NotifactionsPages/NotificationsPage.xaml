@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.NotifactionsPages.NotificationsPage"
+             xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.NotificationsViewModels"
+             xmlns:model="clr-namespace:KhdoumMobile.Models"
+             BackgroundColor="#eeeeee">
+
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="الاشعارات" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+       
+        
+        <StackLayout x:DataType="viewModels:NotificationsViewModel">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <RefreshView Command="{Binding LoadNotificationsCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView"
+                                    ItemsSource="{Binding Notifications}"
+                                    SelectionMode="None">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10,5,10,5">
+                                    <Frame x:DataType="model:Notification" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Frame Grid.RowSpan="2" VerticalOptions="Center"  BackgroundColor="#0972ce" CornerRadius="30" WidthRequest="30" HeightRequest="30"  Padding="5">
+                                                <Label FontFamily="FAS" FontSize="25" Text="bell" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White"/>
+                                            </Frame>
+
+                                            <Label Grid.Column="1"   FontFamily="Cairo" Text="{Binding Title}" FontSize="20" TextColor="#0972ce" VerticalTextAlignment="Center"/>
+                                            <Label Grid.Column="1" Grid.Row="1" FontFamily="Cairo" Text="{Binding Description}" FontSize="12" TextColor="Gray" VerticalTextAlignment="Center"/>
+
+
+
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+
+            </Grid>
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

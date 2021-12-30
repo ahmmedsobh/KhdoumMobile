@@ -1,7 +1,9 @@
-﻿using KhdoumMobile.Interfaces;
+﻿using KhdoumMobile.Helpers;
+using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
 using KhdoumMobile.ViewModels.SupCategoryViewModels;
 using KhdoumMobile.Views.SupCategoryViews;
+using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +16,7 @@ namespace KhdoumMobile.ViewModels.MainViewModels
     class MainViewModel:BaseViewModel
     {
         public ICategoryService CategoryService => DependencyService.Get<ICategoryService>();
+        public INotificationService NotificationService => DependencyService.Get<INotificationService>();
         public ObservableCollection<Category> Categories { get; }
 
         public Command LoadCategoriesCommand { get; }
@@ -24,6 +27,22 @@ namespace KhdoumMobile.ViewModels.MainViewModels
             Categories = new ObservableCollection<Category>();
             LoadCategoriesCommand = new Command(async () => await ExecuteLoadCategoriesCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
+
+            SaveToken();
+
+        }
+
+        async void  SaveToken()
+        {
+            string Token = Settings.FirebaseAppToken;
+            if(!string.IsNullOrEmpty(Token))
+            {
+                var Result = await NotificationService.SaveFirebaseAppToken(Token);
+                if(Result)
+                {
+                    Settings.FirebaseAppToken = "";
+                }
+            }
         }
 
         async Task ExecuteLoadCategoriesCommand()
@@ -47,10 +66,17 @@ namespace KhdoumMobile.ViewModels.MainViewModels
         {
             if (item == null)
                 return;
-            if(item.LevelStatus)
+
+            if(item.PageLink != null && item.PageLink != "")
             {
-                await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={item.Id}");
+                await Shell.Current.GoToAsync(item.PageLink);
             }
+
+            if (item.LevelStatus)
+            {
+                await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={item.Id}&{nameof(SupCategoryViewModel.CategoryName)}={item.CategoryName}");
+            }
+
             //await Shell.Current.GoToAsync($"{item.Url}");
         }
     }

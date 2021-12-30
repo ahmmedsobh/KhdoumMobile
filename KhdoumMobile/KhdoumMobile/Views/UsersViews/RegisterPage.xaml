@@ -17,23 +17,26 @@
 
     <ContentPage.Content>
         <StackLayout Padding="20" VerticalOptions="Center" x:DataType="viewModel:RegisterViewModel">
-            <Image WidthRequest="200" Source="{Binding Logo,Converter={StaticResource StringToImageSourceConverter}}"/>
+            <Image WidthRequest="150" HeightRequest="130" Source="{Binding Logo,Converter={StaticResource StringToImageSourceConverter}}"/>
             <Label FontFamily="Cairo" Text="مرحبا !!" TextColor="#0972ce" FontSize="40"   HorizontalTextAlignment="Center"/>
             <Label FontFamily="Cairo" TextColor="#2497fc" Text="قم بتسجيل حساب جديد" FontSize="20" HorizontalTextAlignment="Center"/>
-            <Frame CornerRadius="20" Margin="0,20,0,0" Padding="0" HasShadow="False">
+            <Frame CornerRadius="20"   Margin="0,0,0,0" Padding="0" HasShadow="False">
+                <controls:CustomEntry    TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="الاسم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Name,Mode=OneWayToSource}"/>
+            </Frame>
+            <Frame CornerRadius="20" Margin="0,0,0,0" Padding="0" HasShadow="False">
                 <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Username,Mode=OneWayToSource}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" HasShadow="False">
-                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="كلمة المرور" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding Password,Mode=OneWayToSource}"/>
+                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="كلمة المرور مثال Gf1M8h5K8##" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding Password,Mode=OneWayToSource}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" HasShadow="False">
                 <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="تأكيد كلمة المرور" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding ConfirmPassword,Mode=OneWayToSource}"/>
             </Frame>
-            <Frame CornerRadius="20" Padding="0" Margin="0,15,0,0">
+            <Frame CornerRadius="20" Padding="0" Margin="0,0,0,0">
                 <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="#0972ce" Text="تسجيل" Command="{Binding RegisterCommand}"/>
             </Frame>
-            <Frame CornerRadius="20" Padding="0" Margin="0,15,0,0">
-                <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="Red" Text="متابعه بدون تسجيل حساب" Command="{Binding GoToMainCommand}"/>
+            <Frame CornerRadius="20" Padding="0" Margin="0,0,0,0">
+                <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="Red" Text="امتلك حساب" Command="{Binding GoToLoginCommand}"/>
             </Frame>
             <Label Text="{Binding Message}" FontFamily="Cairo" HorizontalTextAlignment="Center" FontSize="16" TextColor="{Binding MessageColor}"/>
             <ActivityIndicator Color="#0972ce" IsRunning="{Binding IsBusy}"/>

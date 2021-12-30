@@ -3,9 +3,11 @@ using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
 using KhdoumMobile.Services;
 using KhdoumMobile.Views.MainViews;
+using KhdoumMobile.Views.UsersViews;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -45,6 +47,16 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
             }
         }
 
+        string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                SetProperty(ref name, value);
+            }
+        }
+
         string message;
         public string Message 
         {
@@ -75,7 +87,16 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
             {
                 return new Command(async () =>
                 {
-                    if(Username == "" || Username == null)
+                    
+
+                    if (Name == "" || Name == null)
+                    {
+                        Message = "الاسم مطلوب";
+                        MessageColor = "Red";
+                        return;
+                    }
+
+                    if (Username == "" || Username == null)
                     {
                         Message = "رقم الهاتف مطلوب";
                         MessageColor = "Red";
@@ -88,6 +109,18 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                         MessageColor = "Red";
                         return;
                     }
+
+                    //var passwordRegex = @"((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})";
+                    //var IsValid = Regex.IsMatch(Password, passwordRegex);
+
+                    //if(!IsValid)
+                    //{
+                    //    Message = "";
+                    //    MessageColor = "Red";
+                    //    return;
+                    //}
+                    IsBusy = true;
+
 
                     if (ConfirmPassword == "" || ConfirmPassword == null)
                     {
@@ -103,19 +136,24 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                         return;
                     }
 
+                    
+
                     var isRegistered = await Users.RegisterAsync
-                        (Username, Password, ConfirmPassword);
+                        (Username, Password, ConfirmPassword,Name);
 
                     Settings.Username = Username;
                     Settings.Password = Password;
+                    Settings.Name = Name;
 
                     if (isRegistered)
                     {
-                        Message = "تم التسجيل";
-                        MessageColor = "Green";
+                        //Message = "تم التسجيل";
+                        //MessageColor = "Green";
+                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                     }
                     else
                     {
+                        IsBusy = false;
                         Message = "حدث خطأ ، حاول مجددا";
                         MessageColor = "Red";
                         return;
@@ -131,6 +169,17 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                 return new Command(async () =>
                 {
                     await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                });
+            }
+        }
+
+        public ICommand GoToLoginCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 });
             }
         }

@@ -38,6 +38,7 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
         {
             get => "KhdoumMobile.Resources.Images.KhdoumLogo.png";
         }
+
         async void IsLoggedIn()
         {
             IsBusy = true;

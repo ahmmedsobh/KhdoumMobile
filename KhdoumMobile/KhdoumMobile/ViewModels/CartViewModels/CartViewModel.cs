@@ -136,7 +136,9 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                             UnitName = i.UnitName,
                             MarketName = i.MarketName,
                             ProductId = i.ProductId,
-                            MarketId = i.MarketId
+                            MarketId = i.MarketId,
+                            StateId = i.StateId,
+                            StateName = i.StateName,
                         };
 
                         var r = await CartService.AddCartItem(item);

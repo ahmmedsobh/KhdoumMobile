@@ -45,7 +45,7 @@ namespace KhdoumMobile.Services
 
             return await Task.FromResult(false);
         }
-        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        public async Task<IEnumerable<Order>> GetOrdersAsync(int Status)
         {
            
 
@@ -56,7 +56,7 @@ namespace KhdoumMobile.Services
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Bearer", accessToken);
 
-            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Orders/GetOrdersWithoutDetailsForUser");
+            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/Orders/GetOrdersByStatusWithoutDetailsForUser/{Status}");
 
             IEnumerable<Order> orders = new List<Order>();
 
@@ -67,6 +67,7 @@ namespace KhdoumMobile.Services
             }
 
             orders = from o in orders
+                     orderby o.Status
                      select new Order
                      {
                          ID = o.ID,
@@ -211,6 +212,71 @@ namespace KhdoumMobile.Services
             }
 
             return StatusColor;
+        }
+        public async Task<GeneralDelivery> GeneralDelivery(int State1, int State2)
+        {
+            var client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
+            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/GeneralDelivery/{State1}/{State2}");
+
+            GeneralDelivery delivery = new GeneralDelivery();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                delivery = JsonConvert.DeserializeObject<GeneralDelivery>(json);
+            }
+
+            return await Task.FromResult(delivery);
+        }
+        public async Task<bool> AddDeliveryOrderAsync(OrderViewModel Order)
+        {
+            var Client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
+            Order.OrderDetails = new List<OrderDetails>();
+
+            var json = JsonConvert.SerializeObject(Order);
+            HttpContent content = new StringContent(json);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await Client.PostAsync(Constants.BaseApiAddress + "api/Orders", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return await Task.FromResult(true);
+            }
+
+            return await Task.FromResult(false);
+        }
+        public async Task<IEnumerable<State>> States()
+        {
+            var client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
+            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/States");
+
+            IEnumerable<State> states = new List<State>();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                states = JsonConvert.DeserializeObject<IEnumerable<State>>(json);
+            }
+
+            return await Task.FromResult(states);
         }
     }
 }

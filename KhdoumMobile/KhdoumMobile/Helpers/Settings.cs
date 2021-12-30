@@ -18,6 +18,8 @@ namespace KhdoumMobile.Helpers
                 Preferences.Set("Username", value);
             }
         }
+
+       
         public static string Password
         {
             get
@@ -110,6 +112,18 @@ namespace KhdoumMobile.Helpers
             set
             {
                 Preferences.Set("Address", value);
+            }
+        }
+
+        public static string FirebaseAppToken
+        {
+            get
+            {
+                return Preferences.Get("FirebaseAppToken", "");
+            }
+            set
+            {
+                Preferences.Set("FirebaseAppToken", value);
             }
         }
 

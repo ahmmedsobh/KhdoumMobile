@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace KhdoumMobile.Services
 {
@@ -34,21 +35,23 @@ namespace KhdoumMobile.Services
 
             var accessTokenExpiration = jwtDynamic.Value<DateTime>("expiration");
             var accessToken = jwtDynamic.Value<string>("token");
+            var name = jwtDynamic.Value<string>("name");
 
             Settings.AccessTokenExpirationDate = accessTokenExpiration;
+            Settings.Name = name;
 
 
             return accessToken;
         }
 
-        public async Task<bool> RegisterAsync(string Phone, string Password, string ConfirmPassword)
+        public async Task<bool> RegisterAsync(string Phone, string Password, string ConfirmPassword,string Name)
         {
             var client = new HttpClient();
 
              //Phone = "01097613604";
              //Password = "AAaa123456789##";
 
-            var json = JsonConvert.SerializeObject(new {UserName = Phone,Password=Password });
+            var json = JsonConvert.SerializeObject(new {UserName = Phone,Password=Password,Name=Name });
 
             HttpContent httpContent = new StringContent(json);
 

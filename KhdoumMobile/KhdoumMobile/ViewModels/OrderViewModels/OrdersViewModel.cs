@@ -1,5 +1,6 @@
 ﻿using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
+using KhdoumMobile.Models.ViewModels;
 using KhdoumMobile.Views.OrdersViews;
 using Plugin.Toast;
 using System;
@@ -21,16 +22,23 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
 
         private Order _selectedOrder;
 
+
         public ObservableCollection<Order> Orders { get; }
+        public List<PickerViewModel<int>> Status { get; }
         public Command LoadOrdersCommand { get; }
         public Command<Order> OrderTapped { get; }
 
         public OrdersViewModel()
         {
             Orders = new ObservableCollection<Order>();
+            Status = StatusList;
+
+           
 
             OrderTapped = new Command<Order>(OnOrderSelected);
             LoadOrdersCommand = new Command(() => ExecuteLoadOrdersCommand());
+
+            AppShell.StaticAppViewModel.Value = null;
         }
 
          void ExecuteLoadOrdersCommand()
@@ -73,7 +81,17 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             }
         }
 
-       
+        PickerViewModel<int> selectedStatus;
+        public PickerViewModel<int> SelectedStatus
+        {
+            get => selectedStatus;
+            set
+            {
+                SetProperty(ref selectedStatus, value);
+                FillOrders(value.Value);
+            }
+        }
+
         async void OnOrderSelected(Order Order)
         {
             if (Order == null)
@@ -83,10 +101,10 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             await Shell.Current.GoToAsync($"{nameof(OrderDetailsPage)}?{nameof(OrderDetailsViewModel.OrderId)}={Order.ID}");
         }
 
-        async void FillOrders()
+        async void FillOrders(int Status = 1)
         {
             Orders.Clear();
-            var orders = await OrderService.GetOrdersAsync();
+            var orders = await OrderService.GetOrdersAsync(Status);
             var index = 0;
             foreach (var item in orders)
             {

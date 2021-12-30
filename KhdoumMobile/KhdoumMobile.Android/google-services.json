@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "247698988531",
+    "project_id": "khdoumnotification",
+    "storage_bucket": "khdoumnotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247698988531:android:95920d696393b99e478686",
+        "android_client_info": {
+          "package_name": "eg.khdoum.khdoumapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247698988531-ftv2rd82ljhvftvg1phb68adempel4rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcYoNKVuFUh91v9ArvnWSqPQ172DhfwdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247698988531-ftv2rd82ljhvftvg1phb68adempel4rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

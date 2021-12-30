@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.khdoummobile">
-    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
-    <application android:label="KhdoumMobile.Android" android:theme="@style/MainTheme" android:supportsRtl="true" android:requestLegacyExternalStorage="true">
-	</application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="eg.khdoum.khdoumapp" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<application android:theme="@style/MainTheme" android:supportsRtl="true" android:requestLegacyExternalStorage="true" android:icon="@drawable/ic_launcher" android:label="خدوم للتسوق"></application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.INTERNET" />
 	<queries>
 		<intent>
 			<action android:name="android.intent.action.VIEW" />
@@ -18,7 +18,7 @@
 		</intent>
 		<intent>
 			<action android:name="android.intent.action.DIAL" />
-			<data android:scheme="tel"/>
+			<data android:scheme="tel" />
 		</intent>
 		<intent>
 			<action android:name="android.intent.action.SENDTO" />

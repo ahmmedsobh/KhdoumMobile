@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace KhdoumMobile.Interfaces
 {
-    interface IOrderService
+    public interface IOrderService
     {
-        Task<IEnumerable<Order>> GetOrdersAsync();
+        Task<IEnumerable<Order>> GetOrdersAsync(int Status);
         Task<OrderViewModel> GetOrderAsync(long Id);
         Task<bool> AddOrderAsync(OrderViewModel Order);
+        Task<bool> AddDeliveryOrderAsync(OrderViewModel Order);
+        Task<GeneralDelivery> GeneralDelivery(int State1 , int State2);
+        Task<IEnumerable<State>> States();
     }
 }

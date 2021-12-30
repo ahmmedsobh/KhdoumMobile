@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.OrdersViews.AddDeliveryOrderPage"
+             xmlns:controls="clr-namespace:KhdoumMobile.CustomControls"
+             xmlns:viewModel="clr-namespace:KhdoumMobile.ViewModels.OrderViewModels">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="تأكيد الطلب" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20" x:DataType="viewModel:AddDeliveryOrderViewModel">
+
+                <StackLayout>
+                    <Label Text="اسم المستلم" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="اسم المستلم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.CustomerName}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="رقم هاتف المستلم" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم هاتف المستلم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Phone}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="موعد التسليم" FontFamily="Cairo" TextColor="Gray"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding DeliveryDates}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedDate}" Title="موعد التسليم"/>
+                </StackLayout>
+
+                <!--<StackLayout>
+                    <Label Text="المدينة" FontFamily="Cairo" TextColor="Gray"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding Cities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCity}" Title="المدينة"/>
+                </StackLayout>-->
+
+                <StackLayout>
+                    <Label Text="من منطقة" FontFamily="Cairo" TextColor="Gray"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding States}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedState}" Title="من منطقة"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="الى منطقة" FontFamily="Cairo" TextColor="Gray"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding States}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedStateTo}" Title="الى منطقة"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="عنوان التسليم بالتفصيل" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="عنوان التسليم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Address}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="ملاحظات" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="أكتب ملاحظاتك" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Notes,Mode=OneWayToSource}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="اجمالى الأصناف" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry  TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="اجمالى الأصناف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Total,Mode=OneWayToSource}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="خدمة التوصيل" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry IsReadOnly="True" TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="خدمة التوصيل" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.DeliveryService}"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="المبلغ الاجمالى" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry IsReadOnly="True" TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="المبلغ الاجمالى" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.TotalAmount}"/>
+                </StackLayout>
+
+                <StackLayout Padding="0,10,0,0">
+                    <Button Text="ارسال الطلب" BackgroundColor="#0972ce" TextColor="White" FontFamily="Cairo" Command="{Binding AddOrderCommand}"/>
+                </StackLayout>
+
+                <Label Text="{Binding Message}" HorizontalTextAlignment="Center" FontFamily="Cairo" TextColor="{Binding MessageColor}"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

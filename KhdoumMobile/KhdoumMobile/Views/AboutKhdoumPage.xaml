@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KhdoumMobile.Views.AboutKhdoumPage"
+             xmlns:converters="clr-namespace:KhdoumMobile.Converters">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToImageSourceConverter x:Key="StringToImageSourceConverter"></converters:StringToImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="عن خدوم" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Padding="10" >
+                
+                <Image x:Name="img" Aspect="AspectFit" WidthRequest="200" HeightRequest="200" Source="{Binding Logo,Converter={StaticResource StringToImageSourceConverter}}"/>
+                <Label Text="عن تطبيق خدوم للتسوق"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="StartAndExpand" 
+                FontFamily="Cairo"
+                FontSize="20"
+                TextColor="#0972ce"/>
+
+                <Label Text=" تطبيق خدوم للتسوق هو تطبيق تقدر من خلاله تتسوق كل طلبات البيت من البقاله والخضروات والفواكه والاسماك والمخبوزات والادوية وغيرها تقدر كمان تتسوق من تجار الاون لاين او تطلب حاجه من اى مكان"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                FontFamily="Cairo"
+                FontSize="15"
+                TextColor="Gray"/>
+
+                <Label Text="عن شركة خدوم"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="StartAndExpand" 
+                FontFamily="Cairo"
+                FontSize="20"
+                TextColor="#0972ce"/>
+
+                <Label Text="خدوم شركة متعددة الخدمات بتساعد الاشخاص على الوصول لجميع الخدمات عن طريق تطبيقات الموبيل تستهدف الشركة تقديم خدمات توصيل الطلبات للمنازل وجميع خدمات الدفع الالكترونية وغيرها"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" 
+                FontFamily="Cairo"
+                FontSize="15"
+                TextColor="Gray"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

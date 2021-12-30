@@ -16,6 +16,7 @@ using Xamarin.Forms;
 namespace KhdoumMobile.ViewModels.SupCategoryViewModels
 {
     [QueryProperty(nameof(CategoryId), nameof(CategoryId))]
+    [QueryProperty(nameof(CategoryName), nameof(CategoryName))]
     class SupCategoryViewModel:BaseViewModel
     {
         public ICategoryService CategoryService => DependencyService.Get<ICategoryService>();
@@ -50,10 +51,10 @@ namespace KhdoumMobile.ViewModels.SupCategoryViewModels
                 Categories.Clear();
                 var categories = await CategoryService.GetChildCategories(CategoryId);
 
-                if(categories.Count() > 0)
-                {
-                    CategoryName = categories.ToList()[0].Name;
-                }
+                //if(categories.Count() > 0)
+                //{
+                //    CategoryName = categories.ToList()[0].Name;
+                //}
 
                 foreach (var item in categories)
                 {
@@ -117,7 +118,7 @@ namespace KhdoumMobile.ViewModels.SupCategoryViewModels
             SelectedCategory = null;
             if(category.LevelStatus)
             {
-                await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={category.ID}");
+                await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={category.ID}&{nameof(SupCategoryViewModel.CategoryName)}={category.Name}");
             }
             else
             {

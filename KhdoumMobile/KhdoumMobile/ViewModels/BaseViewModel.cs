@@ -1,5 +1,6 @@
 ﻿using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
+using KhdoumMobile.Models.ViewModels;
 using KhdoumMobile.Services;
 using KhdoumMobile.Views;
 using System;
@@ -20,7 +21,14 @@ namespace KhdoumMobile.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
 
-        
+        public List<PickerViewModel<int>> StatusList { get; set; } = new List<PickerViewModel<int>>()
+        {
+            new PickerViewModel<int>{Value = 0,Name="الكل"},
+            new PickerViewModel<int>{Value = 1,Name="انتظار"},
+            new PickerViewModel<int>{Value = 2,Name="ينفذ"},
+            new PickerViewModel<int>{Value = 3,Name="مكتمل"},
+            new PickerViewModel<int>{Value = 4,Name="ملغى"},
+        };
 
 
         bool isBusy = false;
@@ -35,6 +43,11 @@ namespace KhdoumMobile.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        public string Logo
+        {
+            get => "KhdoumMobile.Resources.Images.KhdoumLogo.png";
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

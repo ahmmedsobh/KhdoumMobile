@@ -144,7 +144,15 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                         var r = await CartService.AddCartItem(item);
                         if (r)
                         {
-                            CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+                            try
+                            {
+                                CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+
+                            }
+                            catch
+                            {
+
+                            }
                             FillItems();
                         }
 
@@ -163,7 +171,14 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                     var r = await CartService.DeleteCartItem(i.Id);
                     if(r)
                     {
-                        CrossToastPopUp.Current.ShowToastMessage("تم الحذف");
+                        try
+                        {
+                           CrossToastPopUp.Current.ShowToastMessage("تم الحذف");
+                        }
+                        catch
+                        {
+
+                        }
                         Items.Remove(i);
                         UpdateCartTotalAmount();
                     }
@@ -181,7 +196,15 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                     {
                         await CartService.DeleteCartItem(item.Id);
                     }
-                    CrossToastPopUp.Current.ShowToastMessage("تم الحذف");
+
+                    try
+                    {
+                        CrossToastPopUp.Current.ShowToastMessage("تم الحذف");
+                    }
+                    catch
+                    {
+
+                    }
                     FillItems();
                     
                 });

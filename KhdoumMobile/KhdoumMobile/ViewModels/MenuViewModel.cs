@@ -163,8 +163,11 @@ namespace KhdoumMobile.ViewModels
         {
             try
             {
-                SelectedItem = null;
-                await Browser.OpenAsync(item.PageLink);
+                if(item != null)
+                {
+                    SelectedItem = null;
+                    await Browser.OpenAsync(item.PageLink);
+                }
             }
             catch(Exception ex)
             {

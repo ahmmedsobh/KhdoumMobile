@@ -5,7 +5,7 @@
              xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels">
     <ContentPage.Content>
         <StackLayout Margin="10" x:DataType="viewModels:ContactUsViewModel">
-            <Editor TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رسالتك"  BackgroundColor="#eceef2" Text="{Binding Message}"></Editor>
+            <Editor HeightRequest="100" TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رسالتك"  BackgroundColor="#eceef2" Text="{Binding Message}"></Editor>
             <Button BackgroundColor="#0972ce" Text="ارسال" Command="{Binding SendCommand}"/>
         </StackLayout>
     </ContentPage.Content>

@@ -1,7 +1,9 @@
 ﻿using KhdoumMobile.Helpers;
 using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
+using KhdoumMobile.ViewModels.ProductsViewModels;
 using KhdoumMobile.ViewModels.SupCategoryViewModels;
+using KhdoumMobile.Views.ProductsViews;
 using KhdoumMobile.Views.SupCategoryViews;
 using Plugin.FirebasePushNotification;
 using System;
@@ -70,11 +72,16 @@ namespace KhdoumMobile.ViewModels.MainViewModels
             if(item.PageLink != null && item.PageLink != "")
             {
                 await Shell.Current.GoToAsync(item.PageLink);
+                return;
             }
 
             if (item.LevelStatus)
             {
                 await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={item.Id}&{nameof(SupCategoryViewModel.CategoryName)}={item.CategoryName}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(ProductsPage)}?{nameof(ProductsViewModel.CategoryId)}={item.Id}");
             }
 
             //await Shell.Current.GoToAsync($"{item.Url}");

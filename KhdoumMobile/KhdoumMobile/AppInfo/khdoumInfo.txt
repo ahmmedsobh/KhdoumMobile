@@ -1,0 +1,9 @@
+Alias: khdoum
+Password: Gh#123555
+Validity: 30
+full name : Khdoum Market App
+organization unit : Khdoum
+organization  : Khdoum
+city : Mansoura
+state : Mansoura
+country code : 20

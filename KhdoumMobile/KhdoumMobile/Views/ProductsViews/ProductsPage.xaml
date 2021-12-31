@@ -55,7 +55,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="10,5,10,5">
+                            <StackLayout Padding="10,5,10,5" >
                                 <Frame x:DataType="model:Product" Padding="10"   CornerRadius="10" BackgroundColor="White">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -99,9 +99,9 @@
                                             </StackLayout>
 
                                             <StackLayout  Orientation="Horizontal" >
-                                                <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
+                                                <Button VerticalOptions="StartAndExpand" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
                                                 <Label FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
-                                                <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
+                                                <Button VerticalOptions="StartAndExpand" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
                                             </StackLayout>
                                             
                                         </StackLayout>

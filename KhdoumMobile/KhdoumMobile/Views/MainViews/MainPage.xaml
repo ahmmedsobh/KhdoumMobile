@@ -68,13 +68,13 @@
                                         <Image  HorizontalOptions="CenterAndExpand"  
                                                 VerticalOptions="StartAndExpand"
                                                 Aspect="AspectFit"
-                                                HeightRequest="50"
-                                                WidthRequest="50"
+                                                HeightRequest="80"
+                                                WidthRequest="80"
                                                 Margin="0,0,0,0"
                                                 Source="{Binding Icon}">
                                             
                                         </Image>
-                                        <Label Padding="0" FontFamily="Cairo" Margin="0,0,0,30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Text}" TextColor="#0972ce"/>
+                                        <Label Padding="0" FontSize="15" FontFamily="Cairo" Margin="0,0,0,30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding Text}" TextColor="#0972ce"/>
                                     </StackLayout>
                                 </Frame>
                             </Grid>

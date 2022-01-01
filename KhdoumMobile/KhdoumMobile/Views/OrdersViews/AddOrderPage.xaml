@@ -31,7 +31,7 @@
 
                 <StackLayout>
                     <Label Text="رقم الهاتف" FontFamily="Cairo" TextColor="Gray"/>
-                    <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Phone}"/>
+                    <controls:CustomEntry Keyboard="Telephone" TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Phone}"/>
                 </StackLayout>
 
                 <StackLayout>
@@ -61,7 +61,7 @@
 
                 <StackLayout>
                     <Label Text="اجمالى الأصناف" FontFamily="Cairo" TextColor="Gray"/>
-                    <controls:CustomEntry IsReadOnly="True" TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="اجمالى الأصناف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Total}"/>
+                    <controls:CustomEntry IsReadOnly="True" TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="اجمالى الأصناف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Total,StringFormat='{0:F2}'}"/>
                 </StackLayout>
 
                 <StackLayout>
@@ -71,7 +71,7 @@
 
                 <StackLayout>
                     <Label Text="المبلغ الاجمالى" FontFamily="Cairo" TextColor="Gray"/>
-                    <controls:CustomEntry IsReadOnly="True" TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="المبلغ الاجمالى" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.TotalAmount}"/>
+                    <controls:CustomEntry IsReadOnly="True" TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="المبلغ الاجمالى" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.TotalAmount,StringFormat='{0:F2}'}"/>
                 </StackLayout>
 
                 <StackLayout Padding="0,10,0,0">

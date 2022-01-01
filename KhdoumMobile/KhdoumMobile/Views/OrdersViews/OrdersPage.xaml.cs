@@ -18,6 +18,8 @@ namespace KhdoumMobile.Views.OrdersViews
         {
             InitializeComponent();
             BindingContext = ViewModel;
+
+             
         }
 
         protected override void OnAppearing()

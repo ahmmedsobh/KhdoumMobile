@@ -359,9 +359,8 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
         void FillFormWithPersonalData()
         {
             Order.CustomerName = Settings.Name;
-            Order.Phone = Settings.Phone;
+            Order.Phone = string.IsNullOrEmpty(Settings.Phone) ? Settings.Username : Settings.Phone;
             Order.Address = Settings.Address;
-
             SelectedCity = Cities.FirstOrDefault(c => c.Value == Settings.City);
             SelectedState = States.FirstOrDefault(s => s.Value == Settings.State);
         }

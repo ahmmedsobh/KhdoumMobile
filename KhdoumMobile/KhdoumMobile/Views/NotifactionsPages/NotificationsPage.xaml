@@ -4,7 +4,8 @@
              x:Class="KhdoumMobile.Views.NotifactionsPages.NotificationsPage"
              xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.NotificationsViewModels"
              xmlns:model="clr-namespace:KhdoumMobile.Models"
-             BackgroundColor="#eeeeee">
+             BackgroundColor="#eeeeee"
+             xmlns:CustomControls="clr-namespace:KhdoumMobile.CustomControls">
 
 
     <Shell.TitleView>
@@ -21,6 +22,12 @@
         </StackLayout>
     </Shell.TitleView>
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <CustomControls:ListEmptyView x:Key="ListEmptyView"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
        
         
@@ -33,7 +40,8 @@
                 <RefreshView Command="{Binding LoadNotificationsCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
                     <CollectionView x:Name="ItemsListView"
                                     ItemsSource="{Binding Notifications}"
-                                    SelectionMode="None">
+                                    SelectionMode="None"
+                                    EmptyView="{StaticResource ListEmptyView}">
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>

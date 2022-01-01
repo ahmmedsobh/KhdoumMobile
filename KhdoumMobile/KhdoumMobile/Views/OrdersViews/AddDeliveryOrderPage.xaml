@@ -30,7 +30,7 @@
 
                 <StackLayout>
                     <Label Text="رقم هاتف المستلم" FontFamily="Cairo" TextColor="Gray"/>
-                    <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم هاتف المستلم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Phone}"/>
+                    <controls:CustomEntry Keyboard="Telephone" TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم هاتف المستلم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Phone}"/>
                 </StackLayout>
 
                 <StackLayout>
@@ -63,8 +63,8 @@
                 </StackLayout>
 
                 <StackLayout>
-                    <Label Text="اجمالى الأصناف" FontFamily="Cairo" TextColor="Gray"/>
-                    <controls:CustomEntry  TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="اجمالى الأصناف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Total,Mode=OneWayToSource}"/>
+                    <Label Text="المبلغ المطلوب" FontFamily="Cairo" TextColor="Gray"/>
+                    <controls:CustomEntry Keyboard="Numeric"  TextColor="Red" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="المبلغ المطلوب" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Order.Total,Mode=OneWayToSource}"/>
                 </StackLayout>
 
                 <StackLayout>

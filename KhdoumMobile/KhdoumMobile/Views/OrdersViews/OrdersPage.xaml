@@ -5,7 +5,8 @@
              xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels.OrderViewModels"
              xmlns:model="clr-namespace:KhdoumMobile.Models"
              BackgroundColor="#eeeeee"
-             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers">
+             xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
+             xmlns:CustomControls="clr-namespace:KhdoumMobile.CustomControls">
 
     <Shell.TitleView>
         <StackLayout  Orientation="Horizontal">
@@ -20,6 +21,12 @@
             <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="الطلبات" TextColor="White"/>
         </StackLayout>
     </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <CustomControls:ListEmptyView x:Key="ListEmptyView"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout x:DataType="viewModels:OrdersViewModel">
@@ -40,7 +47,8 @@
                     <CollectionView x:Name="ItemsListView"
                                     ItemsSource="{Binding Orders}"
                                     SelectionMode="Single"
-                                    SelectedItem="{Binding SelectedOrder}">
+                                    SelectedItem="{Binding SelectedOrder}"
+                                    EmptyView="{StaticResource ListEmptyView}">
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>

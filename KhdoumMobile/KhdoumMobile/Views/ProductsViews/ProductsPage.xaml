@@ -24,6 +24,12 @@
         </StackLayout>
     </Shell.TitleView>
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <controls:ListEmptyView x:Key="ListEmptyView"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         
         
@@ -51,7 +57,8 @@
                 <CollectionView x:Name="ItemsListView"
                                     ItemsSource="{Binding Products}"
                                     SelectionMode="Single"
-                                    SelectedItem="{Binding SelectedProduct}">
+                                    SelectedItem="{Binding SelectedProduct}"
+                                    EmptyView="{StaticResource ListEmptyView}">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

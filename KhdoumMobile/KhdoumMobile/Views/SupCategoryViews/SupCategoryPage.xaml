@@ -7,7 +7,8 @@
              BackgroundColor="#eeeeee"
              xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
              xmlns:converters="clr-namespace:KhdoumMobile.Converters"
-             Title="التصنيفات">
+             Title="التصنيفات"
+             xmlns:CustomControls="clr-namespace:KhdoumMobile.CustomControls">
 
     <Shell.TitleView>
         <StackLayout  Orientation="Horizontal">
@@ -23,6 +24,12 @@
         </StackLayout>
     </Shell.TitleView>
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <CustomControls:ListEmptyView x:Key="ListEmptyView"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout >
             <Grid>
@@ -34,7 +41,8 @@
                                     ItemsSource="{Binding Categories}"
                                     SelectionMode="Single"
                                     SelectedItem="{Binding SelectedCategory}"
-                                    x:DataType="viewModels:SupCategoryViewModel">
+                                    x:DataType="viewModels:SupCategoryViewModel"
+                                    EmptyView="{StaticResource ListEmptyView}">
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -48,7 +56,7 @@
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <Frame Grid.RowSpan="2" Padding="0" HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
+                                            <Frame Grid.RowSpan="2" Padding="0" Margin="12,0,0,0"  HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
                                             <Image 
                                                Source="{Binding ImgUrl}"
                                                Aspect="AspectFill"

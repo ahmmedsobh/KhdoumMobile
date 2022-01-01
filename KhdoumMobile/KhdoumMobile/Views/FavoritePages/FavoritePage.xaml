@@ -91,7 +91,7 @@
 
                                                 <StackLayout  Orientation="Horizontal" >
                                                     <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:FavoriteViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
-                                                    <Label FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
+                                                    <Label TextColor="Black" FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
                                                     <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:FavoriteViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
                                                 </StackLayout>
 

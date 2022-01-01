@@ -32,6 +32,7 @@ namespace KhdoumMobile.ViewModels.MainViewModels
 
             SaveToken();
 
+
         }
 
         async void  SaveToken()

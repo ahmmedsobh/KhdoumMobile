@@ -36,6 +36,9 @@ namespace KhdoumMobile.Models
             }
         }
 
+        public decimal CounterValueToCompare { get; set; }
+
+
         string addCartItemBtnColor;
         public string AddCartItemBtnColor
         {
@@ -43,6 +46,16 @@ namespace KhdoumMobile.Models
             set
             {
                 SetProperty(ref addCartItemBtnColor, value);
+            }
+        }
+
+        string addFavoriteBtnColor;
+        public string AddFavoriteBtnColor
+        {
+            get => addFavoriteBtnColor;
+            set
+            {
+                SetProperty(ref addFavoriteBtnColor, value);
             }
         }
     }

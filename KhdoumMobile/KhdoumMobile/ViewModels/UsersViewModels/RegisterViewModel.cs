@@ -17,6 +17,13 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
     {
         public IUserService<User> Users => DependencyService.Get<IUserService<User>>();
 
+        public RegisterViewModel()
+        {
+            var pass = PasswordFactory.GenerateRandomPassword();
+            Password = pass;
+            confirmPassword = pass;
+        }
+
         string username;
         public string Username 
         {

@@ -18,6 +18,9 @@ namespace KhdoumMobile.ViewModels.CartViewModels
         public IProductsService ProductsService => DependencyService.Get<IProductsService>();
         public ICartService CartService => DependencyService.Get<ICartService>();
 
+        public IFavoriteService FavoriteService => DependencyService.Get<IFavoriteService>();
+
+
         private CartItem _selectedItem;
 
         public ObservableCollection<CartItem> Items { get; }
@@ -100,12 +103,12 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             {
                 return new Command<CartItem>((i) =>
                 {
-                    if (i.CounterValue > 0)
+                    if (i.CounterValue > i.CounterValueToCompare)
                     {
                         i.CounterValue -= i.QuantityDuration;
                     }
 
-                    if (i.CounterValue == 0)
+                    if (i.CounterValue == i.CounterValueToCompare)
                     {
                         i.AddCartItemBtnColor = "#0972ce";
                     }
@@ -120,7 +123,7 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             {
                 return new Command<CartItem>(async (i) =>
                 {
-                    if (i.CounterValue > 0.1M)
+                    if (i.CounterValue > i.CounterValueToCompare)
                     {
                         var item = new CartItem()
                         {
@@ -132,6 +135,7 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                             ImgUrl = i.ImgUrl,
                             QuantityDuration = i.QuantityDuration,
                             CounterValue = i.CounterValue,
+                            CounterValueToCompare = i.CounterValue,
                             AddCartItemBtnColor = i.AddCartItemBtnColor,
                             UnitName = i.UnitName,
                             MarketName = i.MarketName,
@@ -162,6 +166,50 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             }
         }
 
+        public ICommand AddFavoriteCommand
+        {
+            get
+            {
+                return new Command<CartItem>(async (i) =>
+                {
+
+                    bool r;
+                    if (i.AddFavoriteBtnColor == "Red")
+                    {
+                        r = await FavoriteService.DeleteProduct(i.Id);
+                        //if(r)
+                        //{
+                        i.AddFavoriteBtnColor = "DarkGray";
+                        //}
+                    }
+                    else if (i.AddFavoriteBtnColor == "DarkGray")
+                    {
+                        var p = new Product()
+                        {
+                            ID = i.Id,
+                            Name = i.Name,
+                            Price = i.Price,
+                            ImgUrl = i.ImgUrl,
+                            QuantityDuration = i.QuantityDuration,
+                            UnitName = i.UnitName,
+                            MarketName = i.MarketName,
+                            MarketId = i.MarketId,
+                            ProductId = i.ProductId,
+                            StateId = i.StateId,
+                            StateName = i.StateName
+                        };
+
+                        r = await FavoriteService.AddProduct(p);
+                        //if (r)
+                        //{
+                        i.AddFavoriteBtnColor = "Red";
+                        //}
+                    }
+
+                });
+            }
+        }
+
         public ICommand DeleteItemFromCartCommand
         {
             get
@@ -169,13 +217,13 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                 return new Command<CartItem>(async (i) =>
                 {
                     var r = await CartService.DeleteCartItem(i.Id);
-                    if(r)
+                    if (r)
                     {
                         try
                         {
-                           CrossToastPopUp.Current.ShowToastMessage("تم الحذف");
+                            CrossToastPopUp.Current.ShowToastMessage("تم الحذف");
                         }
-                        catch
+                        catch (Exception ex)
                         {
 
                         }
@@ -237,12 +285,31 @@ namespace KhdoumMobile.ViewModels.CartViewModels
 
         async void FillItems()
         {
+
+            IEnumerable<Product> favorites = new List<Product>();
+
+            if ((await FavoriteService.GetProducts()) != null)
+            {
+                if ((await FavoriteService.GetProducts()).Count() > 0)
+                {
+                    favorites = await FavoriteService.GetProducts();
+                }
+            }
+
+
             Items.Clear();
             var items = await CartService.GetCartItems();
 
             decimal TotalAmount = 0;
             foreach (var item in items)
             {
+                var favorite = favorites.FirstOrDefault(f => f.ID == item.Id);
+                if (favorite == null)
+                    item.AddFavoriteBtnColor = "DarkGray";
+                else
+                    item.AddFavoriteBtnColor = "Red";
+
+
                 TotalAmount += item.TotalPrice;
                 Items.Add(item);
             }

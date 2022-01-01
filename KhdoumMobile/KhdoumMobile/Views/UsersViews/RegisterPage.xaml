@@ -27,10 +27,10 @@
                 <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Username,Mode=OneWayToSource}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" HasShadow="False">
-                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="كلمة المرور مثال Gf1M8h5K8##" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding Password,Mode=OneWayToSource}"/>
+                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="كلمة المرور مثال Gf1M8h5K8##" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding Password}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" HasShadow="False">
-                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="تأكيد كلمة المرور" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding ConfirmPassword,Mode=OneWayToSource}"/>
+                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="تأكيد كلمة المرور" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding ConfirmPassword}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" Margin="0,0,0,0">
                 <Button FontFamily="Cairo" VerticalOptions="Center" BackgroundColor="#0972ce" Text="تسجيل" Command="{Binding RegisterCommand}"/>

@@ -134,7 +134,8 @@ namespace KhdoumMobile.Services
                     CartItems[index].CounterValue = Item.CounterValue;
                     CartItems[index].Price = Item.Price;
                     CartItems[index].TotalPrice = Item.TotalPrice;
-
+                    CartItems[index].CounterValueToCompare = Item.CounterValueToCompare;
+                    
                     var ItemsToJson = JsonConvert.SerializeObject(CartItems);
                     result = await PCLFileStorage.WriteTextAllAsync(FileName, ItemsToJson, await FileSystem.Current.LocalStorage.GetFolderAsync(FolderName));
                 }

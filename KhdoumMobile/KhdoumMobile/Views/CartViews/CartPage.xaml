@@ -105,7 +105,7 @@
 
                                                 <StackLayout  Orientation="Horizontal" >
                                                     <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
-                                                    <Label FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
+                                                    <Label TextColor="Black" FontSize="15" VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
                                                     <Button VerticalOptions="Start" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
                                                 </StackLayout>
 
@@ -117,6 +117,13 @@
                                                     <ImageButton.Source>
                                                         <FontImageSource FontFamily="FAS" 
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.TrashAlt}"
+                                                                     Color="White"/>
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                                <ImageButton VerticalOptions="Start" BackgroundColor="{Binding AddFavoriteBtnColor}" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CartViewModel}}, Path=AddFavoriteCommand}" CommandParameter="{Binding .}">
+                                                    <ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" 
+                                                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.Heart}"
                                                                      Color="White"/>
                                                     </ImageButton.Source>
                                                 </ImageButton>

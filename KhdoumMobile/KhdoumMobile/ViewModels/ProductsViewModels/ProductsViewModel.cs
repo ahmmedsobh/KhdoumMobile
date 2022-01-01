@@ -161,7 +161,7 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
             {
                 return new Command<Product>(async(p) =>
                 {
-                   if(p.CounterValue > 0.1M)
+                   if(p.CounterValue >= 0.1M)
                     {
                         var item = new CartItem()
                         {
@@ -185,7 +185,15 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                         var r =  await CartService.AddCartItem(item);
                         if(r)
                         {
-                            CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+                            try
+                            {
+                                CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+                            }
+                            catch
+                            {
+
+                            }
+                           
                         }
                     }
                 });

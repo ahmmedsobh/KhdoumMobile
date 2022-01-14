@@ -11,9 +11,16 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Xamarin.Essentials;
+using System.IO;
 
 namespace KhdoumMobile.Services
 {
+    class Img
+    {
+        public string ImgUrl { get; set; }
+    }
+
     class UserService : IUserService<User>
     {
         public async Task<string> LoginAsync(string Phone, string Password)
@@ -89,5 +96,37 @@ namespace KhdoumMobile.Services
 
             return await Task.FromResult(false); 
         }
+
+        public async Task<string> ChangeUserImage(FileResult ImgFile)
+        {
+            var Client = new HttpClient();
+
+            var accessToken = Settings.AccessToken;
+
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer", accessToken);
+
+            MultipartFormDataContent content = new MultipartFormDataContent();
+
+           
+            if (ImgFile != null)
+            {
+                var FileContent = new StreamContent(await ImgFile.OpenReadAsync());
+                content.Add(FileContent, "ImgFile", ImgFile.FileName);
+            }
+
+
+            var response = await Client.PostAsync(Constants.BaseApiAddress + "api/Clients/ChangeClientImg", content);
+            var Img = new Img();
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                Img = JsonConvert.DeserializeObject<Img>(json);
+            }
+
+            return Img.ImgUrl;
+        }
+
+        
     }
 }

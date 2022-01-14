@@ -9,6 +9,7 @@ using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -19,6 +20,7 @@ namespace KhdoumMobile.ViewModels.MainViewModels
     {
         public ICategoryService CategoryService => DependencyService.Get<ICategoryService>();
         public INotificationService NotificationService => DependencyService.Get<INotificationService>();
+        public IOrderService OrderService => DependencyService.Get<IOrderService>();
         public ObservableCollection<Category> Categories { get; }
 
         public Command LoadCategoriesCommand { get; }
@@ -32,6 +34,10 @@ namespace KhdoumMobile.ViewModels.MainViewModels
 
             SaveToken();
 
+            if(!Settings.IsClientVerifyed)
+            {
+                IsClientVerifyed();
+            }
 
         }
 
@@ -45,6 +51,16 @@ namespace KhdoumMobile.ViewModels.MainViewModels
                 {
                     Settings.FirebaseAppToken = "";
                 }
+            }
+        }
+
+        async void IsClientVerifyed()
+        {
+            var ConfirmedOrders = await OrderService.GetOrdersAsync(3);
+            
+            if(ConfirmedOrders?.Count() > 0)
+            {
+                Settings.IsClientVerifyed = true;
             }
         }
 
@@ -78,7 +94,7 @@ namespace KhdoumMobile.ViewModels.MainViewModels
 
             if (item.LevelStatus)
             {
-                await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={item.Id}&{nameof(SupCategoryViewModel.CategoryName)}={item.CategoryName}");
+                await Shell.Current.GoToAsync($"{nameof(SupCategoryPage)}?{nameof(SupCategoryViewModel.CategoryId)}={item.Id}&{nameof(SupCategoryViewModel.CategoryName)}={item.Text}");
             }
             else
             {

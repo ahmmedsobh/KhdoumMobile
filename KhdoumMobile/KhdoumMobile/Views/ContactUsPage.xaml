@@ -3,10 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KhdoumMobile.Views.ContactUsPage"
              xmlns:viewModels="clr-namespace:KhdoumMobile.ViewModels">
+
+    <Shell.TitleView>
+        <StackLayout  Orientation="Horizontal">
+            <!--<Image>
+                <Image.Source>
+                    <FontImageSource FontFamily="FAS"
+                                     Color="White"
+                                     Glyph="{x:Static fontAwesome:FontAwesomeIcons.ListAlt}"
+                                     Size="20"/>
+                </Image.Source>
+            </Image>-->
+            <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="تواصل معنا" TextColor="White"/>
+        </StackLayout>
+    </Shell.TitleView>
+
     <ContentPage.Content>
         <StackLayout Margin="10" x:DataType="viewModels:ContactUsViewModel">
             <Editor HeightRequest="100" TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رسالتك"  BackgroundColor="#eceef2" Text="{Binding Message}"></Editor>
-            <Button BackgroundColor="#0972ce" Text="ارسال" Command="{Binding SendCommand}"/>
+            <Button FontFamily="Cairo" BackgroundColor="#0972ce" Text="ارسال" Command="{Binding SendCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

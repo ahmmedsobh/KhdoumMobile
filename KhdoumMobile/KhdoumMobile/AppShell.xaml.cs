@@ -4,6 +4,7 @@ using KhdoumMobile.Views;
 using KhdoumMobile.Views.CartViews;
 using KhdoumMobile.Views.MenuViews;
 using KhdoumMobile.Views.NotifactionsPages;
+using KhdoumMobile.Views.OffersViews;
 using KhdoumMobile.Views.OrdersViews;
 using KhdoumMobile.Views.ProductsViews;
 using KhdoumMobile.Views.SupCategoryViews;
@@ -34,6 +35,7 @@ namespace KhdoumMobile
             Routing.RegisterRoute(nameof(AboutKhdoumPage), typeof(AboutKhdoumPage));
             Routing.RegisterRoute(nameof(ContactUsPage), typeof(ContactUsPage));
             Routing.RegisterRoute(nameof(NotificationsPage), typeof(NotificationsPage));
+            Routing.RegisterRoute(nameof(OffersPage), typeof(OffersPage));
             BindingContext = StaticAppViewModel;
         }
       

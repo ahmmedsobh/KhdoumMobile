@@ -26,16 +26,27 @@
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="300"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <StackLayout  Margin="10" HorizontalOptions="Center">
-                    <Frame  BackgroundColor="#0972ce" CornerRadius="100" WidthRequest="100" HeightRequest="100"  Padding="5">
-                        <Label FontFamily="FAS" FontSize="70" Text="user" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White"/>
+                    <Frame HorizontalOptions="Center"  BackgroundColor="#0972ce" CornerRadius="100" WidthRequest="100" HeightRequest="100"  Padding="0">
+                        <!--<Label FontFamily="FAS" FontSize="70" Text="user" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="White"/>-->
+                        <Image Source="{Binding ImgUrl}" Aspect="Fill"></Image>
                     </Frame>
-                    <Label Grid.Column="1" FontFamily="Cairo" Text="{Binding Name}" FontSize="25" TextColor="#0972ce" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                    <Button HorizontalOptions="Center" FontFamily="FAS" Command="{Binding ChangeImageCommand}"  BackgroundColor="#0972ce" TranslationY="-50" TranslationX="-50"  WidthRequest="50" CornerRadius="50" Text="camera"></Button>
+                    <StackLayout Grid.Column="1"  Orientation="Horizontal" >
+                        <ImageButton Command="{Binding VerifyBtnCommand}" Padding="3"  BackgroundColor="{Binding VerifyBtnColor}"   WidthRequest="15" HeightRequest="15" VerticalOptions="CenterAndExpand"    CornerRadius="30" >
+                            <ImageButton.Source>
+                                <FontImageSource FontFamily="FAS" 
+                                 Glyph="{Binding VerifyBtnIcon}"
+                                 Color="White"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+                        <Label  FontFamily="Cairo" Text="{Binding Name}" FontSize="25" TextColor="#0972ce" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                    </StackLayout>
                     <Label Grid.Column="1" FontFamily="Cairo" Text="{Binding Phone}" FontSize="14" TextColor="Gray" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
                 </StackLayout>
               
@@ -92,7 +103,9 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-
+                <StackLayout Grid.Row="0"  VerticalOptions="Center">
+                    <ActivityIndicator Color="#0972ce"  IsRunning="{Binding IsBusy}"/>
+                </StackLayout>
 
             </Grid>
 

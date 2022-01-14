@@ -1,10 +1,12 @@
 ﻿using KhdoumMobile.Helpers;
+using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
 using KhdoumMobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -12,6 +14,9 @@ namespace KhdoumMobile.ViewModels
 {
     class MenuViewModel : BaseViewModel
     {
+
+        public IUserService<User> UserService => DependencyService.Get<IUserService<User>>();
+
         public ObservableCollection<Item> Items { get; }
         public ObservableCollection<Item> Medias { get; }
 
@@ -25,8 +30,48 @@ namespace KhdoumMobile.ViewModels
 
             FillItems();
             FillMedias();
+            DispalyVerifyBtn();
 
-            
+            ImgUrl = string.IsNullOrEmpty(Settings.UserImage) ? $"{Constants.BaseApiAddress}/Uploads/UserImg.png" : Settings.UserImage;
+        }
+
+        public ICommand ChangeImageCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var File = await MediaPicker.PickPhotoAsync();
+
+                    if (File == null)
+                        return;
+
+                    IsBusy = true;
+                    var ImageUrl = await UserService.ChangeUserImage(File);
+
+                    if(!string.IsNullOrEmpty(ImageUrl))
+                    {
+                        Settings.UserImage = ImageUrl;
+                        ImgUrl = ImageUrl;
+                    }
+
+                    IsBusy = false;
+                });
+            }
+        }
+
+        public ICommand VerifyBtnCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    if(Settings.IsClientVerifyed)
+                        await Shell.Current.DisplayAlert("حالة الحساب", "تم التأكد من الهوية", "موافق");
+                    else
+                        await Shell.Current.DisplayAlert("حالة الحساب", "لم يتم التأكد من الهوية", "موافق");
+                });
+            }
         }
 
 
@@ -69,6 +114,36 @@ namespace KhdoumMobile.ViewModels
             set
             {
                 SetProperty(ref phone, value);
+            }
+        }
+
+        string imgUrl;
+        public string ImgUrl
+        {
+            get => imgUrl;
+            set
+            {
+                SetProperty(ref imgUrl, value);
+            }
+        }
+
+        string verifyBtnIcon;
+        public string VerifyBtnIcon
+        {
+            get => verifyBtnIcon;
+            set
+            {
+                SetProperty(ref verifyBtnIcon, value);
+            }
+        }
+
+        string verifyBtnColor;
+        public string VerifyBtnColor
+        {
+            get => verifyBtnColor;
+            set
+            {
+                SetProperty(ref verifyBtnColor, value);
             }
         }
 
@@ -174,6 +249,22 @@ namespace KhdoumMobile.ViewModels
 
             }
             
+        }
+
+        void DispalyVerifyBtn()
+        {
+            var IsClientVerifyed = Settings.IsClientVerifyed;
+
+            if(IsClientVerifyed)
+            {
+                VerifyBtnColor = "Green";
+                VerifyBtnIcon = "\uf00c";
+            }
+            else
+            {
+                VerifyBtnColor = "Red";
+                VerifyBtnIcon = "\uf071";
+            }
         }
 
     }

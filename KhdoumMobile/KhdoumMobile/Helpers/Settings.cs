@@ -127,6 +127,30 @@ namespace KhdoumMobile.Helpers
             }
         }
 
+        public static string UserImage
+        {
+            get
+            {
+                return Preferences.Get("UserImage", "");
+            }
+            set
+            {
+                Preferences.Set("UserImage", value);
+            }
+        }
+
+        public static bool IsClientVerifyed
+        {
+            get
+            {
+                return Preferences.Get("IsClientVerifyed", false);
+            }
+            set
+            {
+                Preferences.Set("IsClientVerifyed", value);
+            }
+        }
+
 
     }
 }

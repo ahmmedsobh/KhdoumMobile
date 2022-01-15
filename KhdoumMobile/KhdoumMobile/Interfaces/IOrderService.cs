@@ -13,6 +13,6 @@ namespace KhdoumMobile.Interfaces
         Task<bool> AddOrderAsync(OrderViewModel Order);
         Task<bool> AddDeliveryOrderAsync(OrderViewModel Order);
         Task<GeneralDelivery> GeneralDelivery(int State1 , int State2);
-        Task<IEnumerable<State>> States();
+        //Task<IEnumerable<State>> States();
     }
 }

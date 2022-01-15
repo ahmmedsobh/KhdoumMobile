@@ -17,7 +17,11 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
     class AddDeliveryOrderViewModel:BaseViewModel
     {
         public IOrderService OrderServcie => DependencyService.Get<IOrderService>();
+        public IStateService StateService => DependencyService.Get<IStateService>();
+        public ICityService CityService => DependencyService.Get<ICityService>();
         public ICartService CartServcie => DependencyService.Get<ICartService>();
+        public ISettingsService SettingsService => DependencyService.Get<ISettingsService>();
+
 
         public AddDeliveryOrderViewModel()
         {
@@ -28,7 +32,16 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
         }
 
         public List<PickerViewModel<int>> DeliveryDates { get; set; }
-        public List<PickerViewModel<int>> Cities { get; set; }
+
+        List<PickerViewModel<int>> cities;
+        public List<PickerViewModel<int>> Cities 
+        {
+            get => cities;
+            set
+            {
+                SetProperty(ref cities, value); 
+            }
+        }
 
         List<PickerViewModel<int>> states;
         public List<PickerViewModel<int>> States 
@@ -212,8 +225,13 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
         }
 
 
-        void FillDates()
+        async void FillDates()
         {
+            var ShowDeliveryDatesState = await SettingsService.ShowDeliveryDatesState();
+
+            if (!ShowDeliveryDatesState)
+                return;
+
             DeliveryDates = new List<PickerViewModel<int>>();
 
 
@@ -265,22 +283,16 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
 
         }
 
-        void FillCities()
+        async void FillCities()
         {
-            Cities = new List<PickerViewModel<int>>()
-            {
-                new PickerViewModel<int>{Value= 1,Name = "الجمالية",Value2= 5 }
-            };
+            var cities = await CityService.GetCities();
+            Cities = new List<PickerViewModel<int>>();
+            Cities = cities.Select(c => new PickerViewModel<int> { Name = c.Name, Value = c.ID, Value2 = c.DeliveryService }).ToList();
         }
 
         async void FillStates()
         {
-            //States = new List<PickerViewModel<int>>()
-            //{
-            //    new PickerViewModel<int>{Value= 2,Name = "الجمالية",Value2=5 },
-            //    new PickerViewModel<int>{Value= 1,Name = "الزمالك",Value2=10 },
-            //};
-            var states = await OrderServcie.States();
+            var states = await StateService.GetStates();
             States = new List<PickerViewModel<int>>();
             States = states.Select(s => new PickerViewModel<int> { Name = s.Name, Value = s.ID, Value2 = s.DeliveryService }).ToList();
         }

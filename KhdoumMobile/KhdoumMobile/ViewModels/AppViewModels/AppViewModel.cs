@@ -35,6 +35,16 @@ namespace KhdoumMobile.ViewModels.AppViewModels
             }
         }
 
+        int? cartValue;
+        public int? CartValue
+        {
+            get => cartValue;
+            set
+            {
+                SetProperty(ref this.cartValue, value);
+            }
+        }
+
 
         void ShowNotifcations()
         {

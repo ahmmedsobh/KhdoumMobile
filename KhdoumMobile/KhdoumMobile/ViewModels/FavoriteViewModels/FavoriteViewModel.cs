@@ -1,4 +1,5 @@
-﻿using KhdoumMobile.Interfaces;
+﻿using KhdoumMobile.Helpers;
+using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
 using Plugin.Toast;
 using System;
@@ -125,7 +126,17 @@ namespace KhdoumMobile.ViewModels.FavoriteViewModels
                         var r = await CartService.AddCartItem(item);
                         if (r)
                         {
-                            CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+                            AppShell.StaticAppViewModel.CartValue = AppShell.StaticAppViewModel.CartValue == null ? 1 : AppShell.StaticAppViewModel.CartValue += 1;
+
+                            SoundPlayer.Play("notification1");
+                            try
+                            {
+                                CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+                            }
+                            catch
+                            {
+
+                            }
                         }
                     }
                 });

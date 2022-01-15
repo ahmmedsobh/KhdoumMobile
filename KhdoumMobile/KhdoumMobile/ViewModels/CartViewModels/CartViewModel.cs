@@ -1,4 +1,5 @@
-﻿using KhdoumMobile.Interfaces;
+﻿using KhdoumMobile.Helpers;
+using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
 using KhdoumMobile.Views.OrdersViews;
 using Plugin.Toast;
@@ -32,6 +33,8 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             Items = new ObservableCollection<CartItem>();
             ItemTapped = new Command<CartItem>(OnItemSelected);
             LoadItemsCommand = new Command(() => ExecuteLoadItemsCommand());
+
+            AppShell.StaticAppViewModel.CartValue = null;
         }
 
         void ExecuteLoadItemsCommand()
@@ -92,7 +95,14 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                 return new Command<CartItem>((i) =>
                 {
                     i.CounterValue += i.QuantityDuration;
-                    i.AddCartItemBtnColor = "Red";
+                    if (i.CounterValue == i.CounterValueToCompare)
+                    {
+                        i.AddCartItemBtnColor = "#0972ce";
+                    }
+                    else
+                    {
+                        i.AddCartItemBtnColor = "Red";
+                    }
                 });
             }
         }
@@ -103,7 +113,7 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             {
                 return new Command<CartItem>((i) =>
                 {
-                    if (i.CounterValue > i.CounterValueToCompare)
+                    if (i.CounterValue > i.QuantityDuration)
                     {
                         i.CounterValue -= i.QuantityDuration;
                     }
@@ -111,6 +121,10 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                     if (i.CounterValue == i.CounterValueToCompare)
                     {
                         i.AddCartItemBtnColor = "#0972ce";
+                    }
+                    else
+                    {
+                        i.AddCartItemBtnColor = "Red";
                     }
 
                 });
@@ -123,7 +137,7 @@ namespace KhdoumMobile.ViewModels.CartViewModels
             {
                 return new Command<CartItem>(async (i) =>
                 {
-                    if (i.CounterValue > i.CounterValueToCompare)
+                    if (i.CounterValue != i.CounterValueToCompare)
                     {
                         var item = new CartItem()
                         {
@@ -148,6 +162,9 @@ namespace KhdoumMobile.ViewModels.CartViewModels
                         var r = await CartService.AddCartItem(item);
                         if (r)
                         {
+                            AppShell.StaticAppViewModel.CartValue = AppShell.StaticAppViewModel.CartValue == null ? 1 : AppShell.StaticAppViewModel.CartValue += 1;
+
+                            SoundPlayer.Play("notification1");
                             try
                             {
                                 CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");

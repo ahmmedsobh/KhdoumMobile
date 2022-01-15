@@ -25,7 +25,7 @@
             <Label FontSize="20" FontFamily="Cairo" VerticalTextAlignment="Center" Text="السلة" TextColor="White"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Label FontSize="13" FontFamily="Cairo" VerticalTextAlignment="Center" Text="المبلغ الكلى:" TextColor="LightGray"/>
-                <Label FontSize="13" FontFamily="Cairo" VerticalTextAlignment="Center" Text="{Binding CartTotalAmount}" TextColor="White"/>
+                <Label FontSize="13" FontFamily="Cairo" VerticalTextAlignment="Center" Text="{Binding CartTotalAmount,StringFormat='{0:F2}ج'}" TextColor="White"/>
             </StackLayout>
         </StackLayout>
     </Shell.TitleView>
@@ -100,7 +100,7 @@
 
                                                 <StackLayout  Orientation="Horizontal">
                                                     <Label FontFamily="Cairo" TextColor="Gray" Text=" السعر النهائى: "/>
-                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding TotalPrice,StringFormat=' {0}ج '}"/>
+                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding TotalPrice,StringFormat=' {0:F2}ج '}"/>
                                                 </StackLayout>
 
                                                 <StackLayout  Orientation="Horizontal" >

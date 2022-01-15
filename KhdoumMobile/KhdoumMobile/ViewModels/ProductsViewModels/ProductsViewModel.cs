@@ -186,9 +186,13 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
                         var r =  await CartService.AddCartItem(item);
                         if(r)
                         {
+
+                            AppShell.StaticAppViewModel.CartValue = AppShell.StaticAppViewModel.CartValue == null?1: AppShell.StaticAppViewModel.CartValue += 1;
+                            SoundPlayer.Play("notification1");
                             try
                             {
                                 CrossToastPopUp.Current.ShowToastMessage("تمت الاضافة");
+                                
                             }
                             catch
                             {

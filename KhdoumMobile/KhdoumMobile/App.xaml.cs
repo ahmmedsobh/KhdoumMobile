@@ -24,6 +24,11 @@ namespace KhdoumMobile
             DependencyService.Register<FavoriteService>();
             DependencyService.Register<NotificationService>();
             DependencyService.Register<OfferService>();
+            DependencyService.Register<StateService>();
+            DependencyService.Register<CityService>();
+            DependencyService.Register<SettingsService>();
+
+            
             MainPage = new AppShell();
 
             CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;

@@ -4,7 +4,7 @@
              x:Class="KhdoumMobile.CustomControls.ListEmptyView">
   <ContentView.Content>
       <StackLayout>
-          <Label FontSize="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontFamily="Cairo" Text="لا يوجد عناصر" />
+          <Label FontSize="20" TextColor="Red" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontFamily="Cairo" Text="لا يوجد عناصر" />
       </StackLayout>
   </ContentView.Content>
 </ContentView>

@@ -227,56 +227,74 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
 
         async void FillDates()
         {
-            var ShowDeliveryDatesState = await SettingsService.ShowDeliveryDatesState();
-
-            if (!ShowDeliveryDatesState)
-                return;
-
-            DeliveryDates = new List<PickerViewModel<int>>();
-
-
-            var hour = DateTime.Now.Hour;
-            var minute = DateTime.Now.Minute;
-
-            if (minute > 45)
+            try
             {
-                hour = hour + 1;
+                await SettingsService.ShowDeliveryDatesState().ContinueWith(async (s) => {
+
+                    var State = await s;
+
+                    if (!State)
+                        return;
+
+                    DeliveryDates = new List<PickerViewModel<int>>();
+                    var hour = DateTime.Now.Hour;
+                    var minute = DateTime.Now.Minute;
+
+                    if (minute > 45)
+                    {
+                        hour = hour + 1;
+                    }
+
+                    if (hour < 10 || hour > 21)
+                    {
+                        hour = 10;
+                    }
+
+                    for (int i = hour; i < 22; i++)
+                    {
+                        var AmOrPm = "";
+                        var from = i;
+                        var to = i + 1;
+
+                        if (i > 11)
+                        {
+                            AmOrPm = "مساءا";
+                        }
+                        else
+                        {
+                            AmOrPm = "صباحا";
+                        }
+
+                        if (i > 12)
+                        {
+                            from = i - 12;
+                            to = from + 1;
+                        }
+
+                        var date = new PickerViewModel<int>()
+                        {
+                            Value = i,
+                            Name = $"من {from} الى {to} {AmOrPm}"
+                        };
+
+                        DeliveryDates.Add(date);
+                    }
+
+                });
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
             }
 
-            if (hour < 10 || hour > 21)
-            {
-                hour = 10;
-            }
 
-            for (int i = hour; i < 22; i++)
-            {
-                var AmOrPm = "";
-                var from = i;
-                var to = i + 1;
 
-                if (i > 11)
-                {
-                    AmOrPm = "مساءا";
-                }
-                else
-                {
-                    AmOrPm = "صباحا";
-                }
 
-                if (i > 12)
-                {
-                    from = i - 12;
-                    to = (i + 1) - 12;
-                }
-
-                var date = new PickerViewModel<int>()
-                {
-                    Value = i,
-                    Name = $"من {from} الى {to} {AmOrPm}"
-                };
-
-                DeliveryDates.Add(date);
-            }
 
 
 

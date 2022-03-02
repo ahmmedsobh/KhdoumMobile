@@ -13,8 +13,7 @@
        xmlns:fontAwesome="clr-namespace:KhdoumMobile.Helpers"
        xmlns:badge="clr-namespace:Xam.Shell.Badge;assembly=Xam.Shell.Badge"
        xmlns:AppViewModel="clr-namespace:KhdoumMobile.ViewModels.AppViewModels"
-       xmlns:CstmFlyoutItem="clr-namespace:KhdoumMobile.CustomControls"
-       >
+       xmlns:CstmFlyoutItem="clr-namespace:KhdoumMobile.CustomControls">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.

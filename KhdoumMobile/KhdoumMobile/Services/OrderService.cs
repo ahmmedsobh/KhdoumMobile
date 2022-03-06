@@ -87,6 +87,7 @@ namespace KhdoumMobile.Services
                          StatusTitle = GetStatusTitle(o.Status),
                          StatusIcon = GetStatusIcon(o.Status),
                          StatusColor = GetStatusColor(o.Status),
+                         StatusIconTitle = GetStatusTitleForIcon(o.Status),
                      };
 
             return await Task.FromResult(orders);
@@ -113,7 +114,8 @@ namespace KhdoumMobile.Services
             order.Order.StatusTitle = GetStatusTitle(order.Order.Status);
             order.Order.StatusIcon = GetStatusIcon(order.Order.Status);
             order.Order.StatusColor = GetStatusColor(order.Order.Status);
-            
+            order.Order.StatusIconTitle = GetStatusTitleForIcon(order.Order.Status);
+
 
             return await Task.FromResult(order);
         }
@@ -154,21 +156,57 @@ namespace KhdoumMobile.Services
             switch(Status)
             {
                 case 1:
+                    StatusTitle = "تم استلام الطلب";
+                    break;
+                case 2:
+                    StatusTitle = "جاري تجهيز الطلب";
+                    break;
+                case 3:
+                    StatusTitle = "تم تجهيز الطلب";
+                    break;
+                case 4:
+                    StatusTitle = "جاري تسليم الطلب";
+                    break;
+                case 5:
+                    StatusTitle = "تم تسليم الطلب";
+                    break;
+                case 6:
+                    StatusTitle = "تم الغاء الطلب";
+                    break;
+            }
+
+            return StatusTitle;
+        }
+
+        string GetStatusTitleForIcon(int Status)
+        {
+            string StatusTitle = "";
+
+            switch (Status)
+            {
+                case 1:
                     StatusTitle = "انتظار";
                     break;
                 case 2:
-                    StatusTitle = "ينفذ";
+                    StatusTitle = "يجهز";
                     break;
                 case 3:
-                    StatusTitle = "مكتمل";
+                    StatusTitle = "مجهز";
                     break;
                 case 4:
+                    StatusTitle = "يسلم";
+                    break;
+                case 5:
+                    StatusTitle = "مكتمل";
+                    break;
+                case 6:
                     StatusTitle = "ملغى";
                     break;
             }
 
             return StatusTitle;
         }
+
         string GetStatusIcon(int Status)
         {
             string StatusIcon = "";
@@ -182,9 +220,15 @@ namespace KhdoumMobile.Services
                     StatusIcon = "\uf085";
                     break;
                 case 3:
-                    StatusIcon = "\uf058";
+                    StatusIcon = "\uf46d";
                     break;
                 case 4:
+                    StatusIcon = "\uf4cf";
+                    break;
+                case 5:
+                    StatusIcon = "\uf058";
+                    break;
+                case 6:
                     StatusIcon = "\uf057";
                     break;
             }
@@ -204,9 +248,15 @@ namespace KhdoumMobile.Services
                     StatusColor = "#1000dd";
                     break;
                 case 3:
-                    StatusColor = "#0ec100";
+                    StatusColor = "#c15a00";
                     break;
                 case 4:
+                    StatusColor = "#00c17a";
+                    break;
+                case 5:
+                    StatusColor = "#0ec100";
+                    break;
+                case 6:
                     StatusColor = "#e70000";
                     break;
             }

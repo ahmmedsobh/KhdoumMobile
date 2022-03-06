@@ -116,5 +116,15 @@ namespace KhdoumMobile.Models
                 SetProperty(ref statusColor,value);
             }
         }
+
+        string statusIconTitle;
+        public string StatusIconTitle
+        {
+            get => statusIconTitle;
+            set
+            {
+                SetProperty(ref statusIconTitle, value);
+            }
+        }
     }
 }

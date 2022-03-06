@@ -269,7 +269,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                     {
                         var AmOrPm = "";
                         var from = i;
-                        var to = i + 1;
+                        var to = (i + 1) > 12?1: (i + 1);
 
                         if (i > 11)
                         {

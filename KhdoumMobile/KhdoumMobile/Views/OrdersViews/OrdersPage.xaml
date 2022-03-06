@@ -75,7 +75,7 @@
                                                              Size="30"/>
                                                         </Image.Source>
                                                     </Image>
-                                                    <Label TextColor="White"  FontFamily="Cairo"   Text="{Binding StatusTitle}" HorizontalTextAlignment="Center"/>
+                                                    <Label TextColor="White"  FontFamily="Cairo"   Text="{Binding StatusIconTitle}" HorizontalTextAlignment="Center"/>
                                                 </StackLayout>
                                             </Frame>
                                            

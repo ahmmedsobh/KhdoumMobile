@@ -25,9 +25,11 @@ namespace KhdoumMobile.ViewModels
         {
             new PickerViewModel<int>{Value = 0,Name="الكل"},
             new PickerViewModel<int>{Value = 1,Name="انتظار"},
-            new PickerViewModel<int>{Value = 2,Name="ينفذ"},
-            new PickerViewModel<int>{Value = 3,Name="مكتمل"},
-            new PickerViewModel<int>{Value = 4,Name="ملغى"},
+            new PickerViewModel<int>{Value = 2,Name="يحهز"},
+            new PickerViewModel<int>{Value = 3,Name="مجهز"},
+            new PickerViewModel<int>{Value = 4,Name="يسلم"},
+            new PickerViewModel<int>{Value = 5,Name="مكتمل"},
+            new PickerViewModel<int>{Value = 6,Name="ملغى"},
         };
 
 

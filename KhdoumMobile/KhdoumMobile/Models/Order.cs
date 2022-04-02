@@ -96,6 +96,7 @@ namespace KhdoumMobile.Models
         public int CityId { get; set; }
         public int? StateId { get; set; } = 1;
         public int? ToStateId { get; set; } = 1;
+        public bool ChangeStatusBtnVisible { get; set; }
         public string UserId { get; set; }
         string statusTitle;
         public string StatusTitle 
@@ -114,6 +115,16 @@ namespace KhdoumMobile.Models
             set
             {
                 SetProperty(ref statusColor,value);
+            }
+        }
+
+        string statusIconTitle;
+        public string StatusIconTitle
+        {
+            get => statusIconTitle;
+            set
+            {
+                SetProperty(ref statusIconTitle, value);
             }
         }
     }

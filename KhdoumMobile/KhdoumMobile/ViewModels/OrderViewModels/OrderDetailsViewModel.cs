@@ -1,5 +1,6 @@
 ﻿using KhdoumMobile.Interfaces;
 using KhdoumMobile.Models;
+using KhdoumMobile.Views.OrdersViews;
 using Plugin.Toast;
 using System;
 using System.Collections.Generic;
@@ -84,22 +85,47 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             }
         }
 
-       
 
-        
+        public ICommand UpdatetStatusCommand
+        {
+            get
+            {
+                return new Command<Order>(async (o) =>
+                {
+                    if (o.Status != 1)
+                        return;
+
+                    var order = new Order
+                    {
+                        ID = o.ID,
+                        Status = 6
+                    };
+
+                    var r = await OrderService.UpdateOrderAsync(order);
+
+                    if (r)
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(OrdersPage)}");
+                    }
+                });
+            }
+        }
 
 
 
 
 
-        
 
-        
 
-       
 
-        
 
-        
+
+
+
+
+
+
+
+
     }
 }

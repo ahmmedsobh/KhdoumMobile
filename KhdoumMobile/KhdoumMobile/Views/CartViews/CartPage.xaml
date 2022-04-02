@@ -77,7 +77,8 @@
                                                     TextColor="#0972ce"
                                                     FontFamily="Cairo"
                                                     FontSize="15"
-                                                    VerticalTextAlignment="Center"/>
+                                                    VerticalTextAlignment="Center"
+                                                    WidthRequest="120"/>
 
 
                                                 <StackLayout Orientation="Horizontal">

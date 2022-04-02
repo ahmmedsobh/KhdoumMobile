@@ -8,6 +8,6 @@ namespace KhdoumMobile.Interfaces
 {
     public interface IStateService
     {
-        Task<IEnumerable<State>> GetStates();
+        Task<IEnumerable<State>> GetStates(int CityId);
     }
 }

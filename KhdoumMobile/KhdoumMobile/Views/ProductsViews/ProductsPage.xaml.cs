@@ -13,10 +13,19 @@ namespace KhdoumMobile.Views.ProductsViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProductsPage : ContentPage
     {
+        ProductsViewModel ViewModel;
+
         public ProductsPage()
         {
             InitializeComponent();
-            BindingContext = new ProductsViewModel();
+            ViewModel = new ProductsViewModel();
+            BindingContext = ViewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ViewModel.OnAppearing();
         }
     }
 }

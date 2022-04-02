@@ -33,10 +33,11 @@ namespace KhdoumMobile.ViewModels.SupCategoryViewModels
             Categories = new ObservableCollection<SupCategory>();
 
             CategoryTapped = new Command<SupCategory>(OnCategorySelected);
+            LoadCategoriesCommand = new Command(async() => await ExecuteLoadCategoriesCommand(CategoryId));
 
         }
 
-        async void ExecuteLoadCategoriesCommand(long CategoryId)
+        async Task ExecuteLoadCategoriesCommand(long CategoryId)
         {
 
             //var IsConnected = await connectionService.IsConnected();

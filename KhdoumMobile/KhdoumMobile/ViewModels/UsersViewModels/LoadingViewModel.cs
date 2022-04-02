@@ -2,6 +2,7 @@
 using KhdoumMobile.Models;
 using KhdoumMobile.Views.MainViews;
 using KhdoumMobile.Views.UsersViews;
+using Plugin.LatestVersion;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -48,6 +49,17 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
             if (current != NetworkAccess.Internet)
             {
                 await Shell.Current.DisplayAlert("رسالة", "تأكد من الاتصال بالانترنت", "موافق");
+                IsBusy = false;
+                LoginBtnVisible = true;
+                return;
+            }
+
+            //var isLatest = await CrossLatestVersion.Current.IsUsingLatestVersion();
+            var isLatest = true;
+            if (!isLatest)
+            {
+                await Shell.Current.DisplayAlert("تحديث جديد", "هناك تحديث جديد من التطبيق قم بالتحديث","موافق");
+                await CrossLatestVersion.Current.OpenAppInStore();
                 IsBusy = false;
                 LoginBtnVisible = true;
                 return;

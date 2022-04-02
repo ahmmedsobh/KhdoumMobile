@@ -38,18 +38,22 @@
                     <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding DeliveryDates}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedDate}" Title="موعد التسليم"/>
                 </StackLayout>
 
-                <!--<StackLayout>
-                    <Label Text="المدينة" FontFamily="Cairo" TextColor="Gray"/>
-                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding Cities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCity}" Title="المدينة"/>
-                </StackLayout>-->
+                <StackLayout>
+                    <Label Text="من مدينة" FontFamily="Cairo" TextColor="Gray"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding Cities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCity}" Title="من مدينة"/>
+                </StackLayout>
 
                 <StackLayout>
                     <Label Text="من منطقة" FontFamily="Cairo" TextColor="Gray"/>
                     <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding States}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedState}" Title="من منطقة"/>
                 </StackLayout>
                 <StackLayout>
+                    <Label Text="الى مدينة" FontFamily="Cairo" TextColor="Gray"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding Cities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedToCity}" Title="الى مدينة"/>
+                </StackLayout>
+                <StackLayout>
                     <Label Text="الى منطقة" FontFamily="Cairo" TextColor="Gray"/>
-                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding States}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedStateTo}" Title="الى منطقة"/>
+                    <Picker FontFamily="Cairo" TitleColor="#0972ce" TextColor="#0972ce" BackgroundColor="#eceef2" ItemsSource="{Binding ToStates}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedStateTo}" Title="الى منطقة"/>
                 </StackLayout>
 
                 <StackLayout>

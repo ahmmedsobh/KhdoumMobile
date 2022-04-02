@@ -115,6 +115,9 @@
 
                                     </Grid>
                                 </Frame>
+
+                                
+
                             </StackLayout>
 
 
@@ -123,7 +126,9 @@
                 </CollectionView>
             </Grid>
 
-
+            <StackLayout Padding="5"  VerticalOptions="End">
+                <Button FontFamily="Cairo" IsVisible="{Binding Order.ChangeStatusBtnVisible}" BackgroundColor="#0972ce" Text="الغاء الطلب" Command="{Binding UpdatetStatusCommand}" CommandParameter="{Binding Order}"/>
+            </StackLayout>
 
 
         </StackLayout>

@@ -54,35 +54,36 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <CollectionView x:Name="ItemsListView"
+                <RefreshView Command="{Binding LoadProductsCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView"
                                     ItemsSource="{Binding Products}"
                                     SelectionMode="Single"
                                     SelectedItem="{Binding SelectedProduct}"
                                     EmptyView="{StaticResource ListEmptyView}">
 
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Padding="10,5,10,5" >
-                                <Frame x:DataType="model:Product" Padding="10"   CornerRadius="10" BackgroundColor="White">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Frame Grid.RowSpan="2" Padding="0"  HasShadow="False" CornerRadius="5">
-                                            <Image 
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10,5,10,5" >
+                                    <Frame x:DataType="model:Product" Padding="10"   CornerRadius="10" BackgroundColor="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Frame Grid.RowSpan="2" Padding="0"  HasShadow="False" CornerRadius="5">
+                                                <Image 
                                                Source="{Binding ImgUrl}"
                                                Aspect="AspectFit"
                                                HeightRequest="60"
                                                WidthRequest="60" />
-                                        </Frame>
+                                            </Frame>
 
-                                        <StackLayout Grid.Column="1">
-                                            <Label 
+                                            <StackLayout Grid.Column="1">
+                                                <Label 
                                                     Text="{Binding Name}"
                                                     FontAttributes="Bold" 
                                                     TextColor="#0972ce"
@@ -92,53 +93,56 @@
                                                     WidthRequest="120"/>
 
 
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label FontSize="10" FontFamily="Cairo" TextColor="#0972ce" Text="المتجر:"/>
-                                                <Label FontSize="10" FontFamily="Cairo" TextColor="Red" Text="{Binding MarketName}"/>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label FontSize="10" FontFamily="Cairo" TextColor="#0972ce" Text="المتجر:"/>
+                                                    <Label FontSize="10" FontFamily="Cairo" TextColor="Red" Text="{Binding MarketName}"/>
+                                                </StackLayout>
+
+                                                <StackLayout  Margin="0" HeightRequest="1" Padding="0"  BackgroundColor="LightGray"/>
+
+                                                <StackLayout  Orientation="Horizontal">
+                                                    <Label FontFamily="Cairo" TextColor="#0972ce" Text=" السعر: "/>
+                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding Price,StringFormat=' {0}ج '}"/>
+                                                    <Label FontFamily="Cairo" TextColor="#0972ce"  Text=" لكل "/>
+                                                    <Label FontFamily="Cairo" TextColor="Red" Text="{Binding UnitName}"/>
+                                                </StackLayout>
+
+                                                <StackLayout  Orientation="Horizontal" >
+                                                    <Button VerticalOptions="StartAndExpand" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
+                                                    <Label FontSize="15" TextColor="Black"  VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
+                                                    <Button VerticalOptions="StartAndExpand" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
+                                                </StackLayout>
+
                                             </StackLayout>
 
-                                            <StackLayout  Margin="0" HeightRequest="1" Padding="0"  BackgroundColor="LightGray"/>
-
-                                            <StackLayout  Orientation="Horizontal">
-                                                <Label FontFamily="Cairo" TextColor="#0972ce" Text=" السعر: "/>
-                                                <Label FontFamily="Cairo" TextColor="Red" Text="{Binding Price,StringFormat=' {0}ج '}"/>
-                                                <Label FontFamily="Cairo" TextColor="#0972ce"  Text=" لكل "/>
-                                                <Label FontFamily="Cairo" TextColor="Red" Text="{Binding UnitName}"/>
-                                            </StackLayout>
-
-                                            <StackLayout  Orientation="Horizontal" >
-                                                <Button VerticalOptions="StartAndExpand" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=IncreaseCounter}" CommandParameter="{Binding .}"/>
-                                                <Label FontSize="15" TextColor="Black"  VerticalTextAlignment="Center" WidthRequest="50" HorizontalTextAlignment="Center" Text="{Binding CounterValue}"/>
-                                                <Button VerticalOptions="StartAndExpand" FontSize="22" BackgroundColor="#0972ce" HeightRequest="40" WidthRequest="40" Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=DecreaseCounter}" CommandParameter="{Binding .}"/>
-                                            </StackLayout>
-                                            
-                                        </StackLayout>
-
-                                        <StackLayout Grid.Column="2" HorizontalOptions="End">
-                                            <ImageButton VerticalOptions="FillAndExpand" BackgroundColor="{Binding AddFavoriteBtnColor}" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=AddFavoriteCommand}" CommandParameter="{Binding .}">
-                                                <ImageButton.Source>
-                                                    <FontImageSource FontFamily="FAS" 
+                                            <StackLayout Grid.Column="2" HorizontalOptions="End">
+                                                <ImageButton VerticalOptions="FillAndExpand" BackgroundColor="{Binding AddFavoriteBtnColor}" Padding="10" WidthRequest="50"  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=AddFavoriteCommand}" CommandParameter="{Binding .}">
+                                                    <ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" 
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.Heart}"
                                                                      Color="White"/>
-                                                </ImageButton.Source>
-                                            </ImageButton>
-                                            <ImageButton VerticalOptions="FillAndExpand" Padding="10"  BackgroundColor="{Binding AddCartItemBtnColor}"   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=AddItemToCartCommand}" CommandParameter="{Binding .}">
-                                                <ImageButton.Source>
-                                                    <FontImageSource FontFamily="FAS" 
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                                <ImageButton VerticalOptions="FillAndExpand" Padding="10"  BackgroundColor="{Binding AddCartItemBtnColor}"   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductsViewModel}}, Path=AddItemToCartCommand}" CommandParameter="{Binding .}">
+                                                    <ImageButton.Source>
+                                                        <FontImageSource FontFamily="FAS" 
                                                                      Glyph="{x:Static fontAwesome:FontAwesomeIcons.CartPlus}"
                                                                      Color="White"/>
-                                                </ImageButton.Source>
-                                            </ImageButton>
-                                        </StackLayout>
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                            </StackLayout>
 
-                                    </Grid>
-                                </Frame>
-                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
 
 
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+
+                
             </Grid>
 
             

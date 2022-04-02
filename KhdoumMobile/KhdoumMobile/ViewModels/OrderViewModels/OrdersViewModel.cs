@@ -69,6 +69,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
         {
             IsBusy = true;
             SelectedOrder = null;
+            AppShell.StaticAppViewModel.Value = null;
         }
 
         public Order SelectedOrder
@@ -114,5 +115,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                 Orders.Add(item);
             }
         }
+
+        
     }
 }

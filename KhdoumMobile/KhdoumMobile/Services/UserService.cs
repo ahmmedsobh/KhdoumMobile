@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Essentials;
 using System.IO;
+using KhdoumMobile.Models.ViewModels;
 
 namespace KhdoumMobile.Services
 {
@@ -51,7 +52,7 @@ namespace KhdoumMobile.Services
             return accessToken;
         }
 
-        public async Task<bool> RegisterAsync(string Phone, string Password, string ConfirmPassword,string Name)
+        public async Task<Response> RegisterAsync(string Phone, string Password, string ConfirmPassword,string Name)
         {
             var client = new HttpClient();
 
@@ -67,12 +68,12 @@ namespace KhdoumMobile.Services
             var response = await client.PostAsync(
                 Constants.BaseApiAddress + "api/Authenticate/register", httpContent);
 
-            if (response.IsSuccessStatusCode)
-            {
-                return true;
-            }
+            var ReturnedJson = await response.Content.ReadAsStringAsync();
+            var message = JsonConvert.DeserializeObject<Response>(ReturnedJson);
+            return message;
 
-            return false;
+
+
         }
 
         public async Task<bool> IsLoggedIn()

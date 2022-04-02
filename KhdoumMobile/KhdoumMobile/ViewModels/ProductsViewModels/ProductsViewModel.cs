@@ -35,8 +35,8 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
             Products = new ObservableCollection<Product>();
 
             ProductTapped = new Command<Product>(OnProductSelected);
-
-
+             
+            LoadProductsCommand = new Command( () => ExecuteLoadProductsCommand(CategoryId));
         }
 
         async void ExecuteLoadProductsCommand(long CategoryId)
@@ -47,7 +47,7 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
             //if (!IsConnected)
             //    return;
 
-            IsBusy = true;
+            //IsBusy = true;
 
             try
             {
@@ -68,7 +68,7 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
             }
             finally
             {
-                IsBusy = false;
+                //IsBusy = false;
             }
         }
 
@@ -275,6 +275,7 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
 
         async void FillProducts()
         {
+            //IsBusy = true;
             Products.Clear();
 
             IEnumerable<Product> favorites = new List<Product>();
@@ -298,6 +299,9 @@ namespace KhdoumMobile.ViewModels.ProductsViewModels
 
                 Products.Add(item);
             }
+
+            IsBusy = false;
+
         }
 
     }

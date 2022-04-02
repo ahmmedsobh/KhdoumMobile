@@ -65,6 +65,7 @@ namespace KhdoumMobile.ViewModels.CartViewModels
         {
             IsBusy = true;
             SelectedItem = null;
+            AppShell.StaticAppViewModel.CartValue = null;
         }
 
         public CartItem SelectedItem

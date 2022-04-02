@@ -24,7 +24,7 @@
                 <controls:CustomEntry    TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="الاسم" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Name,Mode=OneWayToSource}"/>
             </Frame>
             <Frame CornerRadius="20" Margin="0,0,0,0" Padding="0" HasShadow="False">
-                <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Username,Mode=OneWayToSource}"/>
+                <controls:CustomEntry MaxLength="11" Keyboard="Numeric" TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="رقم الهاتف" BorderColor="Transparent" BackgroundColor="#eceef2" Text="{Binding Username,Mode=OneWayToSource}"/>
             </Frame>
             <Frame CornerRadius="20" Padding="0" HasShadow="False">
                 <controls:CustomEntry TextColor="#0972ce" PlaceholderColor="#2497fc" FontFamily="Cairo" Placeholder="كلمة المرور مثال Gf1M8h5K8##" CornerRadius="20" BorderColor="White" BackgroundColor="#eceef2" Text="{Binding Password}"/>

@@ -13,6 +13,8 @@ namespace KhdoumMobile.Models
         public long ProductId { get; set; }
         public long OrderId { get; set; }
         public string MarketName { get; set; }
+        public string MarketId { get; set; }
+
         public string Name { get; set; }
         public string ImgUrl { get; set; }
     }

@@ -13,10 +13,18 @@ namespace KhdoumMobile.Views.SupCategoryViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SupCategoryPage : ContentPage
     {
+        SupCategoryViewModel ViewModel;
         public SupCategoryPage()
         {
             InitializeComponent();
-            BindingContext = new SupCategoryViewModel();
+            ViewModel = new SupCategoryViewModel();
+            BindingContext = ViewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ViewModel.OnAppearing();
         }
     }
 }

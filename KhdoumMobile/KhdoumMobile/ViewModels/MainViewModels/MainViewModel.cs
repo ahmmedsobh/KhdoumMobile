@@ -49,7 +49,7 @@ namespace KhdoumMobile.ViewModels.MainViewModels
                 var Result = await NotificationService.SaveFirebaseAppToken(Token);
                 if(Result)
                 {
-                    Settings.FirebaseAppToken = "";
+                    //Settings.FirebaseAppToken = "";
                 }
             }
         }

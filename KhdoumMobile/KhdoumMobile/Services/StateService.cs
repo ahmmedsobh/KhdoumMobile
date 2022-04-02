@@ -13,7 +13,7 @@ namespace KhdoumMobile.Services
 {
     class StateService : IStateService
     {
-        public async Task<IEnumerable<State>> GetStates()
+        public async Task<IEnumerable<State>> GetStates(int CityId)
         {
             var client = new HttpClient();
 
@@ -22,7 +22,7 @@ namespace KhdoumMobile.Services
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Bearer", accessToken);
 
-            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/States");
+            HttpResponseMessage response = await client.GetAsync($"{Constants.BaseApiAddress}api/States/GetStatesByCity/{CityId}");
 
             IEnumerable<State> states = new List<State>();
 

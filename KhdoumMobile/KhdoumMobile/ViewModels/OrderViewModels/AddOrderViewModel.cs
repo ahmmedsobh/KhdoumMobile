@@ -31,7 +31,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             States = new List<PickerViewModel<int>>();
             
             FillCities();
-            FillStates();
+            //FillStates();
             Order = new Order();
             CalcTotal();
             FillFormWithPersonalData();
@@ -109,6 +109,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             set
             {
                 SetProperty(ref selectedCity, value);
+                FillStates(value);
             }
         }
 
@@ -189,7 +190,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                         return;
                     }
 
-                    Order.Date = DateTime.Now;
+                    Order.Date = Convert.ToInt16(SelectedDate.Value2) == 1? DateTime.Now:DateTime.Now.AddDays(1);
                     Order.Status = 1;
                     Order.CityId = SelectedCity.Value;
                     Order.StateId = SelectedState.Value;
@@ -269,7 +270,7 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                     {
                         var AmOrPm = "";
                         var from = i;
-                        var to = i + 1;
+                        var to = (i + 1) > 12?1: (i + 1);
 
                         if (i > 11)
                         {
@@ -289,11 +290,43 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
                         var date = new PickerViewModel<int>()
                         {
                             Value = i,
-                            Name = $"من {from} الى {to} {AmOrPm}"
+                            Name = $"من {from} الى {to} {AmOrPm}",
+                            Value2 = 1
                         };
 
                         DeliveryDates.Add(date);
                     }
+
+                     for(int i = 10;i<22;i++)
+                     {
+                         var AmOrPm = "";
+                         var from = i;
+                         var to = (i + 1) > 12 ? 1 : (i + 1);
+
+                         if (i > 11)
+                         {
+                             AmOrPm = "مساءا";
+                         }
+                         else
+                         {
+                             AmOrPm = "صباحا";
+                         }
+
+                         if (i > 12)
+                         {
+                             from = i - 12;
+                             to = from + 1;
+                         }
+
+                         var date = new PickerViewModel<int>()
+                         {
+                             Value = i,
+                             Name = $"من {from} الى {to} {AmOrPm} غدا",
+                             Value2 = 2
+                         };
+
+                         DeliveryDates.Add(date);
+                     }
 
                 });
 
@@ -323,9 +356,10 @@ namespace KhdoumMobile.ViewModels.OrderViewModels
             Cities = cities.Select(c => new PickerViewModel<int> { Name = c.Name, Value = c.ID, Value2 = c.DeliveryService }).ToList();
         }
 
-        async void FillStates()
+        async void FillStates(PickerViewModel<int> city)
         {
-            var states = await StateService.GetStates();
+            var CityId = city != null ? city.Value : 0;
+            var states = await StateService.GetStates(CityId);
             States = new List<PickerViewModel<int>>();
             States = states.Select(s => new PickerViewModel<int> { Name = s.Name, Value = s.ID, Value2 = s.DeliveryService }).ToList();
         }

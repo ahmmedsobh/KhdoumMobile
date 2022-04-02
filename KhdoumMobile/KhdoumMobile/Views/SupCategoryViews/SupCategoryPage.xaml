@@ -36,12 +36,11 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
+                <RefreshView x:DataType="viewModels:SupCategoryViewModel"  Command="{Binding LoadCategoriesCommand}" IsRefreshing="{Binding IsBusy,Mode=TwoWay}">
                     <CollectionView x:Name="ItemsListView"
                                     ItemsSource="{Binding Categories}"
                                     SelectionMode="Single"
                                     SelectedItem="{Binding SelectedCategory}"
-                                    x:DataType="viewModels:SupCategoryViewModel"
                                     EmptyView="{StaticResource ListEmptyView}">
 
                         <CollectionView.ItemTemplate>
@@ -57,7 +56,7 @@
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
                                             <Frame Grid.RowSpan="2" Padding="0" Margin="12,0,0,0"  HasShadow="False" CornerRadius="5" BackgroundColor="Transparent">
-                                            <Image 
+                                                <Image 
                                                Source="{Binding ImgUrl}"
                                                Aspect="AspectFill"
                                                HeightRequest="60"
@@ -81,6 +80,9 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+                </RefreshView>
+
+                    
 
 
 

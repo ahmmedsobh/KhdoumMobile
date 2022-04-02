@@ -152,7 +152,7 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                     Settings.Password = Password;
                     Settings.Name = Name;
 
-                    if (isRegistered)
+                    if (isRegistered.Status == "Success")
                     {
                         //Message = "تم التسجيل";
                         //MessageColor = "Green";
@@ -161,7 +161,7 @@ namespace KhdoumMobile.ViewModels.UsersViewModels
                     else
                     {
                         IsBusy = false;
-                        Message = "حدث خطأ ، حاول مجددا";
+                        Message = isRegistered.Message;
                         MessageColor = "Red";
                         return;
                     }
